@@ -23,11 +23,11 @@ extension API : TargetType {
     var path: String {
         switch self {
         case .character:
-            return ""
+            return "/character"
         case .location:
-            return ""
+            return "/location"
         case .episode:
-            return ""
+            return "/episode"
         }
     }
     
@@ -42,11 +42,14 @@ extension API : TargetType {
     var task: Moya.Task {
         switch self {
         case .character:
-            return .requestParameters(parameters: [:], encoding: URLEncoding.queryString)
+            return .requestPlain
+//            return .requestParameters(parameters: [:], encoding: URLEncoding.queryString)
         case .location:
-            return .requestParameters(parameters: [:], encoding: URLEncoding.queryString)
+            return .requestPlain
+//            return .requestParameters(parameters: [:], encoding: URLEncoding.queryString)
         case .episode:
-            return .requestParameters(parameters: [:], encoding: URLEncoding.queryString)
+            return .requestPlain
+//            return .requestParameters(parameters: [:], encoding: URLEncoding.queryString)
         }
     }
     
