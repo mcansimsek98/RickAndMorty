@@ -17,13 +17,13 @@ enum TabBarKind : Int {
     var title: String? {
         switch self {
         case .characters:
-            return "Karakterler"
+            return ViewTitle.characters
         case .locations:
-            return "Lokasyon"
+            return ViewTitle.location
         case .sections:
-            return "Bölümler"
+            return ViewTitle.episode
         case .settings:
-            return "Ayarlar"
+            return ViewTitle.settings
         }
     }
     var icon: UIImage? {

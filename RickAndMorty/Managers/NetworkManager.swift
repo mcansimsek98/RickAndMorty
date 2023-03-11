@@ -26,3 +26,9 @@ struct NetworkManager {
             }
     }
 }
+
+extension NetworkManager {
+    func getAllCharacter() -> Observable<AllCharactersResponse> {
+        NetworkManager.shared.request(.character)
+    }
+}

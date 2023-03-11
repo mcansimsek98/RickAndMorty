@@ -43,13 +43,10 @@ extension API : TargetType {
         switch self {
         case .character:
             return .requestPlain
-//            return .requestParameters(parameters: [:], encoding: URLEncoding.queryString)
         case .location:
             return .requestPlain
-//            return .requestParameters(parameters: [:], encoding: URLEncoding.queryString)
         case .episode:
             return .requestPlain
-//            return .requestParameters(parameters: [:], encoding: URLEncoding.queryString)
         }
     }
     

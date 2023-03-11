@@ -14,7 +14,7 @@ class RMEpisodeVC: BaseVC<RMEpisodeVM> {
     }
 
     override func configure() {
-        title = "Bölümler"
+        title = ViewTitle.episode
     }
 
 }

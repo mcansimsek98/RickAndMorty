@@ -14,7 +14,7 @@ class RMLocationVC: BaseVC<RMLocationVM> {
     }
 
     override func configure() {
-        title = "Lokasyon"
+        title = ViewTitle.location
     }
 }
 

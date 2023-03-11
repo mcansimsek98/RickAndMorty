@@ -14,7 +14,7 @@ class RMSettingsVC: BaseVC<RMSettingsVM> {
     }
 
     override func configure() {
-        title = "Ayarlar"
+        title = ViewTitle.settings
     }
 
 }

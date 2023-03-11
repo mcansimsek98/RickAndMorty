@@ -29,9 +29,17 @@ class BaseVC<T>: UIViewController where T : BaseVM {
     }
     
     func setUpView() {
+        let navBarAppearance = UINavigationBarAppearance()
+        let backgroundImage = UIImage(named: "rick")
+        navBarAppearance.backgroundImage = backgroundImage
+        navigationController?.navigationBar.standardAppearance = navBarAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+        navigationController?.navigationBar.tintColor = UIColor(named: "BlueColor")
+        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.red]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.red]
         navigationItem.largeTitleDisplayMode = .always
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        view.backgroundColor = .white
+        navigationController?.navigationBar.prefersLargeTitles = true
+        view.backgroundColor = UIColor(named: "Background")
     }
     
     func setUpConstraints() {
