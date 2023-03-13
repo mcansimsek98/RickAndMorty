@@ -13,8 +13,9 @@ class RMLocationVC: BaseVC<RMLocationVM> {
         super.viewDidLoad()
     }
 
-    override func configure() {
-        title = ViewTitle.location
+    override func setUpView() {
+        self.topNavBar.title.text = ViewTitle.location
+        topNavBar.hasBackButton = false
     }
 }
 

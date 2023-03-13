@@ -22,7 +22,7 @@ class SplashVC: BaseVC<SplashVM> {
         self.viewModel?.goMain.onNext(())
     }
 
-    override func setUpConstraints() {
+    override func setUpView() {
         view.addSubview(imgView)
         imgView.translatesAutoresizingMaskIntoConstraints = false
         imgView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true

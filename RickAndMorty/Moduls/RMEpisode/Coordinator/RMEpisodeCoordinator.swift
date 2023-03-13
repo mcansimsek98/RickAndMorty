@@ -23,6 +23,7 @@ class RMEpisodeCoordinator: ReactiveCoordinator<Void> {
         let vm = RMEpisodeVM()
         vc.viewModel = vm
         
+        navigationController.navigationBar.isHidden = true
         navigationController.setViewControllers([vc], animated: true)
         return Observable.never()
     }

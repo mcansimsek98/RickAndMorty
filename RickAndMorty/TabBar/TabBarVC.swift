@@ -18,7 +18,7 @@ class TabBarVC: UITabBarController {
             self.tabBar.backgroundColor = UIColor(named: "TabBarColor")
             self.addTabbarIndicatorView(index: 0, isFirstTime: true)
         }
-        self.tabBar.tintColor = .black
+        self.tabBar.tintColor = UIColor(named: "BlackColor")
   
     }
     
@@ -29,7 +29,7 @@ class TabBarVC: UITabBarController {
         }
         underLineView = UIView(frame: CGRect(x: tabView.frame.minX + 19, y: tabView.frame.maxY + 2,
                                              width: tabView.frame.size.width - 12 * 3.2, height: 4))
-        underLineView.backgroundColor = .black
+        underLineView.backgroundColor = UIColor(named: "BlackColor")
         tabBar.addSubview(underLineView)
 
     }

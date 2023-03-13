@@ -13,8 +13,9 @@ class RMEpisodeVC: BaseVC<RMEpisodeVM> {
         super.viewDidLoad()
     }
 
-    override func configure() {
-        title = ViewTitle.episode
+    override func setUpView() {
+        self.topNavBar.title.text = ViewTitle.episode
+        topNavBar.hasBackButton = false
     }
 
 }

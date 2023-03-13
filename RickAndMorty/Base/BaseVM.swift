@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import Moya
 
-class BaseVM {
+class BaseVM : NSObject {
     let showLoading = BehaviorSubject<Bool>(value: false)
     var error = PublishSubject<String>()
     let disposeBag = DisposeBag()

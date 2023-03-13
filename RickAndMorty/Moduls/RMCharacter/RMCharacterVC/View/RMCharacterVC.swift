@@ -9,18 +9,18 @@ import UIKit
 
 final class RMCharacterVC: BaseVC<RMCharacterVM> {
 
-    private let characterListView = CharacterListView()
+    private let characterListView = RMCharacterListView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel?.getAllCharacter()
+        topNavBar.hasBackButton = false
     }
     
-    override func configure() {
-        title = ViewTitle.characters
+    override func setUpView() {
+        self.topNavBar.title.text = ViewTitle.characters
         view.addSubview(characterListView)
         NSLayoutConstraint.activate([
-            characterListView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            characterListView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
             characterListView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             characterListView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             characterListView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)

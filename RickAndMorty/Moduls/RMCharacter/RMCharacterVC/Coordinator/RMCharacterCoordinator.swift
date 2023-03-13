@@ -22,7 +22,8 @@ class RMCharacterCoordinator: ReactiveCoordinator<Void> {
         let vc = RMCharacterVC()
         let vm = RMCharacterVM()
         vc.viewModel = vm
-        
+         
+        navigationController.navigationBar.isHidden = true
         navigationController.setViewControllers([vc], animated: true)
         return Observable.never()
     }

@@ -14,34 +14,50 @@ class BaseVC<T>: UIViewController where T : BaseVM {
     
     let screen = UIScreen.main.bounds
     
+    public var topNavBar: TopNavBar = {
+        let view = TopNavBar()
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor(named: "BlackColor")?.withAlphaComponent(0.3).cgColor
+        view.backgroundColor = UIColor(named: "TabBarColor")
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configure()
         self.setUpView()
-        self.setUpConstraints()
+        self.addTopNavBar()
+        view.backgroundColor = UIColor(named: "Background")
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return UIStatusBarStyle.lightContent
     }
     
-    func configure() {
-    }
-    
     func setUpView() {
-        let navBarAppearance = UINavigationBarAppearance()
-        let backgroundImage = UIImage(named: "rick")
-        navBarAppearance.backgroundImage = backgroundImage
-        navigationController?.navigationBar.standardAppearance = navBarAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-        navigationController?.navigationBar.tintColor = UIColor(named: "BlueColor")
-        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.red]
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.red]
-        navigationItem.largeTitleDisplayMode = .always
-        navigationController?.navigationBar.prefersLargeTitles = true
-        view.backgroundColor = UIColor(named: "Background")
     }
-    
-    func setUpConstraints() {
+ 
+}
+
+extension BaseVC {
+    func addTopNavBar() {
+        topNavBar.delegate = self
+        view.addSubview(topNavBar)
+        NSLayoutConstraint.activate([
+            topNavBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant:  -60),
+            topNavBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: -2),
+            topNavBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant:  2),
+            topNavBar.heightAnchor.constraint(equalToConstant: 120)
+        ])
+    }
+}
+
+extension BaseVC: TopNavBarDelegate {
+    func backBtnAction() {
+        if let nav = self.navigationController {
+            nav.popViewController(animated: true)
+        }else {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }

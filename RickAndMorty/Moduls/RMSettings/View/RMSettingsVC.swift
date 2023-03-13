@@ -13,8 +13,9 @@ class RMSettingsVC: BaseVC<RMSettingsVM> {
         super.viewDidLoad()
     }
 
-    override func configure() {
-        title = ViewTitle.settings
+    override func setUpView() {
+        self.topNavBar.title.text = ViewTitle.settings
+        topNavBar.hasBackButton = false
     }
 
 }

@@ -23,6 +23,7 @@ class RMSettingsCoordinator: ReactiveCoordinator<Void> {
         let vm = RMSettingsVM()
         vc.viewModel = vm
         
+        navigationController.navigationBar.isHidden = true
         navigationController.setViewControllers([vc], animated: true)
         return Observable.never()
     }
