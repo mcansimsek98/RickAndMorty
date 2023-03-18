@@ -25,6 +25,11 @@ Project is created with:
 * RxCocoa
 	
 ## Photos
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/82471515/226112121-957f6f59-9d4e-4973-b641-95e966ab34f2.png" width=400 height=800>
+ 
+
 <table>
   <tr>
     <td><img src="https://user-images.githubusercontent.com/82471515/226112121-957f6f59-9d4e-4973-b641-95e966ab34f2.png" width=400 height=800></td>
