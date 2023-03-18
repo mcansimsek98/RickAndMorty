@@ -12,6 +12,7 @@ This project is primarily developed using the ["https://rickandmortyapi.com"](ht
 	
 ## Technologies and 3rd party libraries
 Project is created with:
+* UIKit
 * MVVM-Cordinator Design Pattern
 * Moya
 * RxSwift
