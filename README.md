@@ -1,7 +1,7 @@
 # RickAndMorty
 
-In this project, I will proceed using Rxswift and MVVM-C architecture. I will implement the Rick and Morty animated series, which is known and loved by everyone. You can follow the progress on the committees.
 
+This application is primarily developed using the ["https://rickandmortyapi.com/api"](https://rickandmortyapi.com/api) API and provides rich information about the characters and episodes of the Rick and Morty animated series. 
 
 <table>
   <tr>
@@ -16,4 +16,8 @@ In this project, I will proceed using Rxswift and MVVM-C architecture. I will im
     <td><img src="https://user-images.githubusercontent.com/82471515/226112003-011204a9-ac34-4962-9f1b-67a5be440e39.png" width=400 height=800></td>
       </tr>
  </table>
+
+
+
+
  
