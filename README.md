@@ -30,6 +30,7 @@ Project is created with:
   <img src="https://user-images.githubusercontent.com/82471515/226112121-957f6f59-9d4e-4973-b641-95e966ab34f2.png" width=400 height=800>
 <br>
 </br>
+<p align="center">
 <table>
   <tr>
     <td><img src="https://user-images.githubusercontent.com/82471515/226112142-d3b90401-5ae1-46bf-a54c-7d3863f88e53.png" width=400 height=800></td>
