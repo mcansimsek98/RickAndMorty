@@ -12,9 +12,10 @@ This project is primarily developed using the ["https://rickandmortyapi.com"](ht
 	
 ## Technologies and 3rd party libraries
 Project is created with:
-* Lorem version: 12.3
-* Ipsum version: 2.33
-* Ament library version: 999
+* MVVM-Cordinator Design Pattern
+* Moya
+* RxSwift
+* RxCocoa
 	
 ## Photos
 <table>
