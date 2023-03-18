@@ -19,7 +19,10 @@ class SplashVC: BaseVC<SplashVM> {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.viewModel?.goMain.onNext(())
+        self.topNavBar.isHidden = true
+        DispatchQueue.main.asyncAfter(deadline: .now()+3, execute: {
+            self.viewModel?.goMain.onNext(())
+        })
     }
 
     override func setUpView() {

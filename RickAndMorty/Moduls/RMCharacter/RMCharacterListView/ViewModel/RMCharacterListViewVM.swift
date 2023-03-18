@@ -10,35 +10,42 @@ import RxSwift
 import RxCocoa
 import Foundation
 
-final class RMCharacterListViewVM : BaseVM {
-    let allCharacterList = PublishSubject<AllCharactersResponse>()
-    
-    func getAllCharacter() {
-        self.showLoading.onNext(true)
-        NetworkManager.shared.getAllCharacter().subscribe(onNext: { res in
-            self.showLoading.onNext(false)
-            self.allCharacterList.onNext(res)
-        }, onError: { error in
-            self.showLoading.onNext(false)
-            self.showFailError(error: error)
-        }).disposed(by: disposeBag)
-    }
+protocol RMCharacterListViewVMDelegate: AnyObject {
+    func didLoadInitialCharacter()
 }
 
-extension RMCharacterListViewVM: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+final class RMCharacterListViewVM : BaseVM {
+    public weak var delegate : RMCharacterListViewVMDelegate?
+
+    let allCharacterList = PublishSubject<[RMCharacterCVCellVM]>()
+
+    func getAllCharacter() {
+        self.showLoading.onNext(true)
+        NetworkManager.shared.getAllCharacter()
+            .map { res -> [RMCharacterCVCellVM] in
+                return res.results.compactMap { character in
+                    guard let imageUrl = URL(string: character.image ?? "") else {
+                        return nil
+                    }
+                    return RMCharacterCVCellVM(
+                        characterName: character.name ?? "",
+                        characterStatus: character.status,
+                        characterImageUrl: imageUrl
+                    )
+                }
+            }
+            .subscribe(onNext: { [weak self] viewModel in
+                self?.showLoading.onNext(false)
+                self?.allCharacterList.onNext(viewModel)
+                DispatchQueue.main.async {
+                    self?.delegate?.didLoadInitialCharacter()
+                }
+            }, onError: { [weak self] error in
+                self?.showLoading.onNext(false)
+                self?.showFailError(error: error)
+            })
+            .disposed(by: disposeBag)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RMCharacterCVCell", for: indexPath)
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let bounds = UIScreen.main.bounds
-        let width = (bounds.width-30)/2
-        return CGSize(width: width, height: width * 1.5)
-    }
+
     
 }

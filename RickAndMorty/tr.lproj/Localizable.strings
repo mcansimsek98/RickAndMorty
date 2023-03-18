@@ -4,3 +4,5 @@
 "location" = "Lokasyon";
 "episode" = "Bölümler";
 "settings" = "Ayarlar";
+"status" = "Statü";
+"unknown" = "Bilinmiyor";

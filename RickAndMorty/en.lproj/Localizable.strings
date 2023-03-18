@@ -4,5 +4,5 @@
 "location" = "Location";
 "episode" = "Episode";
 "settings" = "Settings";
-
-
+"status" = "Status";
+"unknown" = "Unknown";
