@@ -1,4 +1,10 @@
-# RickAndMorty
+<h1 align="center">
+  <br>
+  <a href="https://user-images.githubusercontent.com/82471515/226115826-b9eacc3a-a1b0-47f9-a2c6-c87900477775.png" alt="Rick And Morty" width="200"></a>
+  <br>
+  Rick And Morty
+  <br>
+</h1>
 
 
 ## Table of contents
