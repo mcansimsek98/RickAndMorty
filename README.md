@@ -1,8 +1,22 @@
 # RickAndMorty
 
 
-This application is primarily developed using the ["https://rickandmortyapi.com"](https://rickandmortyapi.com) API and provides rich information about the characters and episodes of the Rick and Morty animated series. 
+## Table of contents
+* [General info](#general-info)
+* [Technologies](#technologies)
+* [Photos](#photos)
 
+## General info
+
+This project is primarily developed using the ["https://rickandmortyapi.com"](https://rickandmortyapi.com) API and provides rich information about the characters and episodes of the Rick and Morty animated series. 
+	
+## Technologies and 3rd party libraries
+Project is created with:
+* Lorem version: 12.3
+* Ipsum version: 2.33
+* Ament library version: 999
+	
+## Photos
 <table>
   <tr>
     <td><img src="https://user-images.githubusercontent.com/82471515/226112121-957f6f59-9d4e-4973-b641-95e966ab34f2.png" width=400 height=800></td>
