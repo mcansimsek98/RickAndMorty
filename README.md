@@ -1,7 +1,7 @@
 # RickAndMorty
 
 
-This application is primarily developed using the ["https://rickandmortyapi.com/api"](https://rickandmortyapi.com/api) API and provides rich information about the characters and episodes of the Rick and Morty animated series. 
+This application is primarily developed using the ["https://rickandmortyapi.com"](https://rickandmortyapi.com) API and provides rich information about the characters and episodes of the Rick and Morty animated series. 
 
 <table>
   <tr>
