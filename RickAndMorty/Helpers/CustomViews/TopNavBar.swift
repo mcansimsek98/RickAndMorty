@@ -42,7 +42,8 @@ class TopNavBar: UIView {
     
     private let detailPageName: UILabel = {
         let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 22)
+        label.text = "back".localized()
+        label.font = UIFont(name: "Chalkboard SE", size: 20)
         label.textColor = UIColor(named: "BlackColor")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -98,9 +99,9 @@ class TopNavBar: UIView {
             backBtn.heightAnchor.constraint(equalToConstant: 24),
             backBtn.widthAnchor.constraint(equalToConstant: 24),
             
-            detailPageName.leadingAnchor.constraint(equalTo: self.backBtn.trailingAnchor, constant: 10),
-            detailPageName.bottomAnchor.constraint(equalTo: self.backBtn.bottomAnchor),
-            detailPageName.heightAnchor.constraint(equalToConstant: 24)
+            detailPageName.leadingAnchor.constraint(equalTo: self.backBtn.trailingAnchor, constant: 5),
+            detailPageName.centerYAnchor.constraint(equalTo: self.backBtn.centerYAnchor, constant: -2),
+            detailPageName.heightAnchor.constraint(equalToConstant: 20)
         ])
     }
     

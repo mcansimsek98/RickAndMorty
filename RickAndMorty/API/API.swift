@@ -9,7 +9,7 @@ import Foundation
 import Moya
 
 enum API {
-    case character
+    case character(query: String)
     case location
     case episode
     
@@ -41,8 +41,9 @@ extension API : TargetType {
     
     var task: Moya.Task {
         switch self {
-        case .character:
-            return .requestPlain
+        case .character(let query):
+//            return .requestPlain
+            return .requestParameters(parameters: ["page": "\(query)"], encoding: URLEncoding.queryString)
         case .location:
             return .requestPlain
         case .episode:

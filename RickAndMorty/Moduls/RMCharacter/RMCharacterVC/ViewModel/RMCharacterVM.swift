@@ -10,4 +10,5 @@ import RxSwift
 
 final class RMCharacterVM: BaseVM {
     
+    let gotoDetailCharacter = PublishSubject<String>()
 }

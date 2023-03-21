@@ -10,19 +10,21 @@ import RxSwift
 import RxCocoa
 import Foundation
 
-protocol RMCharacterListViewVMDelegate: AnyObject {
-    func didLoadInitialCharacter()
-}
-
 final class RMCharacterListViewVM : BaseVM {
-    public weak var delegate : RMCharacterListViewVMDelegate?
-
-    let allCharacterList = PublishSubject<[RMCharacterCVCellVM]>()
-
-    func getAllCharacter() {
+    public let allCharacterList = BehaviorSubject(value: [DataSorceModel(header: "", items: [RMCharacterCVCellVM]())])
+    public var apiInfo: AllCharactersResponse.Info? = nil
+    public var isLoadingMoreCharacters: Bool = false
+    public var shouldShowLoadMoreIndicator: Bool {
+        return apiInfo?.next != nil
+    }
+    
+    private var characterList: [RMCharacterCVCellVM] = []
+    
+    func getAllCharacter(_ query: String = "0") {
         self.showLoading.onNext(true)
-        NetworkManager.shared.getAllCharacter()
+        NetworkManager.shared.getAllCharacter(query)
             .map { res -> [RMCharacterCVCellVM] in
+                self.apiInfo = res.info
                 return res.results.compactMap { character in
                     guard let imageUrl = URL(string: character.image ?? "") else {
                         return nil
@@ -35,17 +37,35 @@ final class RMCharacterListViewVM : BaseVM {
                 }
             }
             .subscribe(onNext: { [weak self] viewModel in
-                self?.showLoading.onNext(false)
-                self?.allCharacterList.onNext(viewModel)
-                DispatchQueue.main.async {
-                    self?.delegate?.didLoadInitialCharacter()
-                }
+                guard let self = self else { return }
+                self.showLoading.onNext(false)
+                self.characterList.append(contentsOf: viewModel)
+                let data = DataSorceModel(header: "", items: self.characterList)
+
+                self.allCharacterList.onNext([data])
+                self.isLoadingMoreCharacters = false
             }, onError: { [weak self] error in
                 self?.showLoading.onNext(false)
                 self?.showFailError(error: error)
             })
             .disposed(by: disposeBag)
     }
-
+    
+    public func fetchAdditionalCharacter(url: String) {
+        guard !isLoadingMoreCharacters else { return }
+        self.isLoadingMoreCharacters = true
+        guard let pageNum = getPageNumber(from: url) else {
+            self.isLoadingMoreCharacters = false
+            return
+        }
+        self.getAllCharacter(pageNum)
+    }
+    
+    func getPageNumber(from url: String) -> String? {
+        guard let urlComponents = URLComponents(string: url) else { return nil }
+        guard let pageQueryParam = urlComponents.queryItems?.first(where: { $0.name == "page" }) else { return nil }
+        return pageQueryParam.value
+    }
+    
     
 }

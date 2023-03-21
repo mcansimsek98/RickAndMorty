@@ -22,6 +22,10 @@ class RMCharacterCoordinator: ReactiveCoordinator<Void> {
         let vc = RMCharacterVC()
         let vm = RMCharacterVM()
         vc.viewModel = vm
+        
+        vm.gotoDetailCharacter.subscribe(onNext: { res in
+            _ = RMCharacterDetailCoordinator(rootViewController: vc, character: res).start()
+        }).disposed(by: disposeBag)
          
         navigationController.navigationBar.isHidden = true
         navigationController.setViewControllers([vc], animated: true)

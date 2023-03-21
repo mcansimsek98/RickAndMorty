@@ -8,26 +8,37 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxDataSources
+
+protocol RMCharacterListViewDelegate: AnyObject {
+    func gotoDetailCharacter(_ characterName: String)
+}
 
 final class RMCharacterListView: UIView {
     var viewModel: RMCharacterListViewVM?
     private let disposeBag = DisposeBag()
+    
+    weak var delegate: RMCharacterListViewDelegate?
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets(top: 15, left: 10, bottom: 10, right: 10)
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = .red
-        cv.isHidden = true
-        cv.alpha = 0
         cv.register(RMCharacterCVCell.self, forCellWithReuseIdentifier: RMCharacterCVCell.cellIdentifier)
+        cv.register(RMFooterLoadingCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: RMFooterLoadingCollectionReusableView.identifier)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.backgroundColor = .clear
         cv.showsVerticalScrollIndicator = false
         cv.showsHorizontalScrollIndicator = false
         return cv
     }()
+    
+    private let characterDataSource = RxCollectionViewSectionedReloadDataSource<DataSorceModel<RMCharacterCVCellVM>> { _, collectionView, indexPath, item in
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMCharacterCVCell.cellIdentifier, for: indexPath) as! RMCharacterCVCell
+        cell.configure(with: item)
+        return cell
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -44,7 +55,6 @@ final class RMCharacterListView: UIView {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .clear
         viewModel = RMCharacterListViewVM()
-        viewModel?.delegate = self
         viewModel?.getAllCharacter()
         collectionView.rx.setDelegate(self).disposed(by: disposeBag)
     }
@@ -60,19 +70,26 @@ final class RMCharacterListView: UIView {
     }
     
     func bindViewModel() {
-        self.viewModel?.allCharacterList.bind(to: self.collectionView.rx.items(cellIdentifier: RMCharacterCVCell.cellIdentifier, cellType: RMCharacterCVCell.self)) { row, item, cell in
-            cell.configure(with: item)
-        }.disposed(by: disposeBag)
-    }
-}
-
-//MARK: RMCharacterListViewVMDelegate
-extension RMCharacterListView: RMCharacterListViewVMDelegate {
-    func didLoadInitialCharacter() {
-        self.collectionView.isHidden = false
-        UIView.animate(withDuration: 0.3) {
-            self.collectionView.alpha = 1
+        ///CollectionViewFooter methods
+        characterDataSource.configureSupplementaryView = { dataSource, collectionView, kind, indexPath in
+            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind ,
+                                                                             withReuseIdentifier: RMFooterLoadingCollectionReusableView.identifier,
+                                                                             for: indexPath) as! RMFooterLoadingCollectionReusableView
+            footerView.startAnimating()
+            return footerView
         }
+        
+        ///CollectionViewCellForAtRowandNumberOfRoes methods
+        self.viewModel?.allCharacterList.bind(to: collectionView.rx.items(dataSource: self.characterDataSource)).disposed(by: disposeBag)
+        
+        ///CollectionViewDidSelect method
+        Observable
+            .zip(collectionView.rx.itemSelected,
+                 collectionView.rx.modelSelected(RMCharacterCVCellVM.self))
+            .bind { [weak self] indexPath, model in
+                self?.delegate?.gotoDetailCharacter(model.characterName)
+            }.disposed(by: disposeBag)
+        
     }
 }
 
@@ -84,4 +101,28 @@ extension RMCharacterListView: UICollectionViewDelegateFlowLayout {
         return CGSize(width: width, height: width * 1.5)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        guard self.viewModel!.shouldShowLoadMoreIndicator else { return .zero }
+        return CGSize(width: collectionView.frame.width, height: 60)
+    }
+}
+
+//MARK: UIScrollView guide
+extension RMCharacterListView: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard self.viewModel!.shouldShowLoadMoreIndicator,
+              !self.viewModel!.isLoadingMoreCharacters,
+              let nextUrlString = self.viewModel?.apiInfo?.next else {
+            return
+        }
+        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { t in
+            let offset = scrollView.contentOffset.y
+            let totalContentHeight = scrollView.contentSize.height
+            let totalScrollViewFixedHeight = scrollView.frame.size.height
+            if offset >= (totalContentHeight - totalScrollViewFixedHeight - 50) {
+                self.viewModel?.fetchAdditionalCharacter(url: nextUrlString)
+            }
+            t.invalidate()
+        }
+    }
 }

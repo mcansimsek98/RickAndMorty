@@ -53,12 +53,12 @@ class RMCharacterCVCell: UICollectionViewCell {
         setUpLayer()
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        imageView.image = nil
-        nameLabel.text = nil
-        statusLabel.text = nil
-    }
+//    override func prepareForReuse() {
+//        super.prepareForReuse()
+//        imageView.image = nil
+//        nameLabel.text = nil
+//        statusLabel.text = nil
+//    }
     
     public func configure(with viewModel: RMCharacterCVCellVM) {
         nameLabel.text = viewModel.characterName
@@ -82,6 +82,7 @@ extension RMCharacterCVCell {
     private func setUpLayer() {
         contentView.layer.cornerRadius = 8
         contentView.layer.borderWidth = 0.5
+        contentView.layer.borderColor = UIColor(named: "BlackColor")?.cgColor
         contentView.layer.shadowColor = UIColor(named: "BlackColor")?.cgColor
         contentView.layer.shadowOffset = CGSize(width: -3, height: 3)
         contentView.layer.shadowOpacity = 0.3

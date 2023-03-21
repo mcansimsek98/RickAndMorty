@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class RMCharacterVC: BaseVC<RMCharacterVM> {
 
@@ -18,6 +19,7 @@ final class RMCharacterVC: BaseVC<RMCharacterVM> {
     
     override func setUpView() {
         self.topNavBar.title.text = ViewTitle.characters
+        characterListView.delegate = self
         view.addSubview(characterListView)
         NSLayoutConstraint.activate([
             characterListView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
@@ -29,3 +31,8 @@ final class RMCharacterVC: BaseVC<RMCharacterVM> {
 
 }
 
+extension RMCharacterVC: RMCharacterListViewDelegate {
+    func gotoDetailCharacter(_ characterName: String) {
+        self.viewModel?.gotoDetailCharacter.onNext(characterName)
+    }
+}
