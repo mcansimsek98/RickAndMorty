@@ -11,7 +11,7 @@ import RxCocoa
 import Foundation
 
 final class RMCharacterListViewVM : BaseVM {
-    public let allCharacterList = BehaviorSubject(value: [DataSorceModel(header: "", items: [RMCharacterCVCellVM]())])
+    public let allCharacterList = BehaviorSubject(value: [DataSourceModel(header: "", items: [RMCharacterCVCellVM]())])
     public var apiInfo: AllCharactersResponse.Info? = nil
     public var isLoadingMoreCharacters: Bool = false
     public var shouldShowLoadMoreIndicator: Bool {
@@ -30,6 +30,7 @@ final class RMCharacterListViewVM : BaseVM {
                         return nil
                     }
                     return RMCharacterCVCellVM(
+                        characterId: character.id ?? 0,
                         characterName: character.name ?? "",
                         characterStatus: character.status,
                         characterImageUrl: imageUrl
@@ -40,7 +41,7 @@ final class RMCharacterListViewVM : BaseVM {
                 guard let self = self else { return }
                 self.showLoading.onNext(false)
                 self.characterList.append(contentsOf: viewModel)
-                let data = DataSorceModel(header: "", items: self.characterList)
+                let data = DataSourceModel(header: "", items: self.characterList)
 
                 self.allCharacterList.onNext([data])
                 self.isLoadingMoreCharacters = false

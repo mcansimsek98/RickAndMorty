@@ -40,16 +40,16 @@ class TopNavBar: UIView {
         return iv
     }()
     
-    private let detailPageName: UILabel = {
+    public var detailPageName: UILabel = {
         let label = UILabel()
-        label.text = "back".localized()
-        label.font = UIFont(name: "Chalkboard SE", size: 20)
+        label.textAlignment = .center
+        label.font = UIFont(name: "Chalkboard SE", size: 22)
         label.textColor = UIColor(named: "BlackColor")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    var title: UILabel = {
+    public var title: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Chalkboard SE", size: 30)
         label.textColor = UIColor(named: "BlackColor")
@@ -91,17 +91,18 @@ class TopNavBar: UIView {
             iconImageView.widthAnchor.constraint(equalToConstant: 125),
             
             title.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 18),
-            title.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            title.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
             title.heightAnchor.constraint(equalToConstant: 42),
             
-            backBtn.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 18),
+            backBtn.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             backBtn.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
             backBtn.heightAnchor.constraint(equalToConstant: 24),
             backBtn.widthAnchor.constraint(equalToConstant: 24),
             
-            detailPageName.leadingAnchor.constraint(equalTo: self.backBtn.trailingAnchor, constant: 5),
+            detailPageName.centerXAnchor.constraint(equalTo: centerXAnchor),
             detailPageName.centerYAnchor.constraint(equalTo: self.backBtn.centerYAnchor, constant: -2),
-            detailPageName.heightAnchor.constraint(equalToConstant: 20)
+            detailPageName.heightAnchor.constraint(equalToConstant: 30),
+            detailPageName.widthAnchor.constraint(equalToConstant: 300)
         ])
     }
     

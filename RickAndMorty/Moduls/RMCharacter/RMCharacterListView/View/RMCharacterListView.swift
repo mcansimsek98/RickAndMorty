@@ -34,7 +34,7 @@ final class RMCharacterListView: UIView {
         return cv
     }()
     
-    private let characterDataSource = RxCollectionViewSectionedReloadDataSource<DataSorceModel<RMCharacterCVCellVM>> { _, collectionView, indexPath, item in
+    private let characterDataSource = RxCollectionViewSectionedAnimatedDataSource<DataSourceModel<RMCharacterCVCellVM>> { _, collectionView, indexPath, item in
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMCharacterCVCell.cellIdentifier, for: indexPath) as! RMCharacterCVCell
         cell.configure(with: item)
         return cell
@@ -87,7 +87,7 @@ final class RMCharacterListView: UIView {
             .zip(collectionView.rx.itemSelected,
                  collectionView.rx.modelSelected(RMCharacterCVCellVM.self))
             .bind { [weak self] indexPath, model in
-                self?.delegate?.gotoDetailCharacter(model.characterName)
+                self?.delegate?.gotoDetailCharacter("\(model.characterId)")
             }.disposed(by: disposeBag)
         
     }
@@ -115,14 +115,14 @@ extension RMCharacterListView: UIScrollViewDelegate {
               let nextUrlString = self.viewModel?.apiInfo?.next else {
             return
         }
-        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { t in
+//        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { t in
             let offset = scrollView.contentOffset.y
             let totalContentHeight = scrollView.contentSize.height
             let totalScrollViewFixedHeight = scrollView.frame.size.height
             if offset >= (totalContentHeight - totalScrollViewFixedHeight - 50) {
                 self.viewModel?.fetchAdditionalCharacter(url: nextUrlString)
             }
-            t.invalidate()
-        }
+//            t.invalidate()
+//        }
     }
 }

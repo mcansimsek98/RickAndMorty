@@ -6,37 +6,21 @@
 //
 
 import Foundation
+import RxDataSources
 
-
-final class RMCharacterCVCellVM: BaseVM {
-    public let characterName: String
-    private let characterStatus: RMCharacterStatus
-    private let characterImageUrl: URL?
+final class RMCharacterCVCellVM: BaseVM, IdentifiableType {
+    var identity: Int
     
-    init(characterName: String, characterStatus: RMCharacterStatus, characterImageUrl: URL?) {
+    let characterId : Int
+    let characterName: String
+    let characterStatusText: String
+    let characterImageUrl: URL?
+    
+    init(characterId: Int, characterName: String, characterStatus: RMCharacterStatus, characterImageUrl: URL?) {
+        self.identity = characterId
+        self.characterId = characterId
         self.characterName = characterName
-        self.characterStatus = characterStatus
+        self.characterStatusText = "status".localized() + ": " + characterStatus.text
         self.characterImageUrl = characterImageUrl
-    }
-    
-    public var characterStatusText: String {
-        return "status".localized() + ": " + characterStatus.text
-    }
-    
-    public func fetchImage(complation: @escaping (Result<Data, Error>) -> Void ) {
-        //TODO: Abstract to image Manager
-        guard let url = characterImageUrl else {
-            complation(.failure(URLError(.badURL)))
-            return
-        }
-        let request = URLRequest(url: url)
-        let task = URLSession.shared.dataTask(with: request) { data, _, error in
-            guard let data = data, error == nil else {
-                complation(.failure(error ?? URLError(.badServerResponse)))
-                return
-            }
-            complation(.success(data))
-        }
-        task.resume()
     }
 }

@@ -13,6 +13,7 @@ final class RMCharacterDetailVC: BaseVC<RMCharacterDetailVM> {
     override func viewDidLoad() {
         super.viewDidLoad()
         topNavBar.hasBackButton = true
+        topNavBar.detailPageName.text = character
         print(character)
     }
     

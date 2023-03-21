@@ -65,6 +65,7 @@
 		B2D9A7EC29BF1C3C003B32E7 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D9A7EB29BF1C3C003B32E7 /* UIView+Extension.swift */; };
 		B2D9A7EE29BF54CB003B32E7 /* RMCharacterListViewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D9A7ED29BF54CB003B32E7 /* RMCharacterListViewVM.swift */; };
 		B2D9A7F329BF633E003B32E7 /* RMCharacterCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D9A7F229BF633E003B32E7 /* RMCharacterCVCell.swift */; };
+		B2EADD7B29C9DC590088FBC1 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = B2EADD7A29C9DC590088FBC1 /* SDWebImage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -131,6 +132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2EADD7B29C9DC590088FBC1 /* SDWebImage in Frameworks */,
 				B26C08D129ACC36A006B4C9C /* RxSwift in Frameworks */,
 				B26C08CF29ACC36A006B4C9C /* RxCocoa in Frameworks */,
 				B284ACCF29AE741E00201B4B /* RxMoya in Frameworks */,
@@ -649,6 +651,7 @@
 				B26C08DB29ACCAF5006B4C9C /* Moya */,
 				B284ACCE29AE741E00201B4B /* RxMoya */,
 				B2CF3D3629C8943B00883436 /* RxDataSources */,
+				B2EADD7A29C9DC590088FBC1 /* SDWebImage */,
 			);
 			productName = RickAndMorty;
 			productReference = B26C08A829ACBE88006B4C9C /* RickAndMorty.app */;
@@ -683,6 +686,7 @@
 				B26C08CD29ACC36A006B4C9C /* XCRemoteSwiftPackageReference "RxSwift" */,
 				B26C08DA29ACCAF5006B4C9C /* XCRemoteSwiftPackageReference "Moya" */,
 				B2CF3D3529C8943B00883436 /* XCRemoteSwiftPackageReference "RxDataSources" */,
+				B2EADD7929C9DC590088FBC1 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = B26C08A929ACBE88006B4C9C /* Products */;
 			projectDirPath = "";
@@ -1015,6 +1019,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		B2EADD7929C9DC590088FBC1 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1042,6 +1054,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B2CF3D3529C8943B00883436 /* XCRemoteSwiftPackageReference "RxDataSources" */;
 			productName = RxDataSources;
+		};
+		B2EADD7A29C9DC590088FBC1 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B2EADD7929C9DC590088FBC1 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

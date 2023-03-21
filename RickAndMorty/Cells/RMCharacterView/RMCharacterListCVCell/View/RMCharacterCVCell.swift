@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class RMCharacterCVCell: UICollectionViewCell {
     static let cellIdentifier = "RMCharacterCVCell"
@@ -53,27 +54,18 @@ class RMCharacterCVCell: UICollectionViewCell {
         setUpLayer()
     }
     
-//    override func prepareForReuse() {
-//        super.prepareForReuse()
-//        imageView.image = nil
-//        nameLabel.text = nil
-//        statusLabel.text = nil
-//    }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
+        nameLabel.text = nil
+        statusLabel.text = nil
+    }
     
     public func configure(with viewModel: RMCharacterCVCellVM) {
         nameLabel.text = viewModel.characterName
         statusLabel.text = viewModel.characterStatusText
-        viewModel.fetchImage { [weak self] result in
-            switch result {
-            case .success(let data):
-                DispatchQueue.main.async {
-                    let image = UIImage(data: data)
-                    self?.imageView.image = image
-                }
-            case .failure(_):
-                break
-            }
-        }
+        guard let url = viewModel.characterImageUrl else { return }
+        imageView.sd_setImage(with: url)
     }
 }
 

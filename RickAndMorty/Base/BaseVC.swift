@@ -17,7 +17,6 @@ class BaseVC<T>: UIViewController where T : BaseVM {
     public var topNavBar: TopNavBar = {
         let view = TopNavBar()
         view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor(named: "BlackColor")?.withAlphaComponent(0.3).cgColor
         view.backgroundColor = UIColor(named: "TabBarColor")
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -27,16 +26,28 @@ class BaseVC<T>: UIViewController where T : BaseVM {
         super.viewDidLoad()
         self.setUpView()
         self.addTopNavBar()
+        self.setUpLayer()
         view.backgroundColor = UIColor(named: "Background")
     }
-
+    
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return UIStatusBarStyle.lightContent
     }
     
     func setUpView() {
     }
- 
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        setUpLayer()
+    }
+    
+    func setUpLayer() {
+        topNavBar.layer.borderColor = UIColor(named: "BlackColor")?.withAlphaComponent(0.3).cgColor
+        topNavBar.layer.shadowColor = UIColor(named: "BlackColor")?.withAlphaComponent(0.5).cgColor
+        topNavBar.layer.shadowOffset = CGSize(width: -3, height: 6)
+        topNavBar.layer.shadowOpacity = 0.3
+    }
 }
 
 extension BaseVC {
