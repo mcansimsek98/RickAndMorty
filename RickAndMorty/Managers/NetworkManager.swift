@@ -31,4 +31,8 @@ extension NetworkManager {
     func getAllCharacter(_ query: String) -> Observable<AllCharactersResponse> {
         NetworkManager.shared.request(.character(query: query))
     }
+    
+    func getCharacterDetail(_ id: String) -> Observable<Character> {
+        NetworkManager.shared.request(.characterDetail(id: id))
+    }
 }

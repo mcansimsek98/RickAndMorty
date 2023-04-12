@@ -11,6 +11,7 @@ import RxCocoa
 
 protocol TopNavBarDelegate: AnyObject {
     func backBtnAction()
+    func shareBtnAction()
 }
 
 @IBDesignable
@@ -19,6 +20,7 @@ class TopNavBar: UIView {
     @IBInspectable var hasBackButton:Bool = false {
         didSet {
             backBtn.isHidden = !hasBackButton
+            shareBtn.isHidden = !hasBackButton
             detailPageName.isHidden = !hasBackButton
             title.isHidden = hasBackButton
             iconImageView.isHidden = hasBackButton
@@ -30,6 +32,14 @@ class TopNavBar: UIView {
         button.isUserInteractionEnabled = true
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "back"), for: .normal)
+        return button
+    }()
+    
+    private lazy var shareBtn: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.isUserInteractionEnabled = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "shareBtn"), for: .normal)
         return button
     }()
     
@@ -83,7 +93,7 @@ class TopNavBar: UIView {
     }
 
     private func layout() {
-        addSubViews(title, backBtn, detailPageName, iconImageView)
+        addSubViews(title, backBtn, detailPageName, iconImageView, shareBtn)
         NSLayoutConstraint.activate([
             iconImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -18),
             iconImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
@@ -99,6 +109,11 @@ class TopNavBar: UIView {
             backBtn.heightAnchor.constraint(equalToConstant: 24),
             backBtn.widthAnchor.constraint(equalToConstant: 24),
             
+            shareBtn.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -14),
+            shareBtn.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            shareBtn.heightAnchor.constraint(equalToConstant: 24),
+            shareBtn.widthAnchor.constraint(equalToConstant: 24),
+            
             detailPageName.centerXAnchor.constraint(equalTo: centerXAnchor),
             detailPageName.centerYAnchor.constraint(equalTo: self.backBtn.centerYAnchor, constant: -2),
             detailPageName.heightAnchor.constraint(equalToConstant: 30),
@@ -112,6 +127,10 @@ extension TopNavBar {
     func configure() {        
         self.backBtn.rx.tap.bind {
             self.delegate?.backBtnAction()
+        }.disposed(by: disposeBag)
+        
+        self.shareBtn.rx.tap.bind {
+            self.delegate?.shareBtnAction()
         }.disposed(by: disposeBag)
     }
 }

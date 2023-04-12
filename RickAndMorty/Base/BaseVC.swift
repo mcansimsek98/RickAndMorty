@@ -71,4 +71,8 @@ extension BaseVC: TopNavBarDelegate {
             self.dismiss(animated: true, completion: nil)
         }
     }
+    
+    func shareBtnAction() {
+        
+    }
 }

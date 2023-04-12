@@ -10,6 +10,7 @@ import Moya
 
 enum API {
     case character(query: String)
+    case characterDetail(id: String)
     case location
     case episode
     
@@ -24,6 +25,8 @@ extension API : TargetType {
         switch self {
         case .character:
             return "/character"
+        case .characterDetail(let id):
+            return "/character/\(id)"
         case .location:
             return "/location"
         case .episode:
@@ -35,15 +38,16 @@ extension API : TargetType {
         switch self {
             
         default:
-             return .get
+            return .get
         }
     }
     
     var task: Moya.Task {
         switch self {
         case .character(let query):
-//            return .requestPlain
             return .requestParameters(parameters: ["page": "\(query)"], encoding: URLEncoding.queryString)
+        case .characterDetail:
+            return .requestPlain
         case .location:
             return .requestPlain
         case .episode:
