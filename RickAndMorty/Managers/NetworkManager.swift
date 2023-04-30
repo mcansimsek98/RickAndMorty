@@ -35,4 +35,8 @@ extension NetworkManager {
     func getCharacterDetail(_ id: String) -> Observable<Character> {
         NetworkManager.shared.request(.characterDetail(id: id))
     }
+    
+    func getCharacterDetailEpisodes(_ id: String) -> Observable<Episode> {
+        NetworkManager.shared.request(.characterDetailEpisode(id: id))
+    }
 }

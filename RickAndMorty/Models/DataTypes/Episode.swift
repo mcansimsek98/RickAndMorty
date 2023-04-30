@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct Episode: Codable {
-    let id: Int?
-    let name: String?
-    let type: String?
-    let dimension: String?
-    let residents: [String]
-    let url: String?
-    let created: String?
+struct Episode: Codable, RMEpisodeDataRender {
+    var id: Int?
+    var name: String
+    var air_date: String
+    var episode: String
+    var characters: [String]
+    var url: String?
+    var created: String?
 }

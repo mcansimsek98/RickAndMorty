@@ -8,7 +8,7 @@
 import Foundation
 
 final class RMCharacterPhotoCVCellVM: BaseVM {
-    private let imageUrl: URL?
+    let imageUrl: URL?
     
     init(imageUrl: URL?) {
         self.imageUrl = imageUrl

@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 
 class BaseVC<T>: UIViewController where T : BaseVM {
-    var viewModel : T?
+    var viewModel : T!
     let disposeBag = DisposeBag()
     
     let screen = UIScreen.main.bounds
