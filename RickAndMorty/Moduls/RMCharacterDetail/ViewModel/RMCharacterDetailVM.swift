@@ -11,7 +11,7 @@ import RxSwift
 enum SectionType {
     case photo(viewModel: RMCharacterPhotoCVCellVM)
     case info(viewModel: [RMCharacterInfoCVCellVM])
-    case episodes(viewModel: [RMCharacterEpisodeCVCellVM])
+    case episodes(viewModel: [RMEpisodeCVCellVM])
 }
 
 final class RMCharacterDetailVM: BaseVM {

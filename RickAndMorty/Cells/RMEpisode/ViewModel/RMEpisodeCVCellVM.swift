@@ -7,15 +7,19 @@
 
 import Foundation
 import RxSwift
+import RxDataSources
 
-protocol RMEpisodeDataRender {
+protocol RMEpisodeDataRender  {
     var name: String { get }
     var air_date: String { get }
     var episode: String { get }
 }
 
-final class RMCharacterEpisodeCVCellVM: BaseVM {
-    private let episdoeDataURL: String?
+final class RMEpisodeCVCellVM: BaseVM, IdentifiableType {
+    var identity: String {
+        return self.episdoeDataURL ?? ""
+    }
+    let episdoeDataURL: String?
     private var isFetching = false
     private var dataBlock: ((RMEpisodeDataRender) -> Void)?
     private var episode: Episode? {

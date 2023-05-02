@@ -23,7 +23,8 @@ class TopNavBar: UIView {
             shareBtn.isHidden = !hasBackButton
             detailPageName.isHidden = !hasBackButton
             title.isHidden = hasBackButton
-            iconImageView.isHidden = hasBackButton
+//            iconImageView.isHidden = hasBackButton
+            searchBtn.isHidden = hasBackButton
         }
     }
     
@@ -43,12 +44,20 @@ class TopNavBar: UIView {
         return button
     }()
     
-    private var iconImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.image = UIImage(named: "rickandmortyicons")
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        return iv
+    private lazy var searchBtn: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.isUserInteractionEnabled = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "Search"), for: .normal)
+        return button
     }()
+    
+//    private var iconImageView: UIImageView = {
+//        let iv = UIImageView()
+//        iv.image = UIImage(named: "rickandmortyicons")
+//        iv.translatesAutoresizingMaskIntoConstraints = false
+//        return iv
+//    }()
     
     public var detailPageName: UILabel = {
         let label = UILabel()
@@ -93,12 +102,12 @@ class TopNavBar: UIView {
     }
 
     private func layout() {
-        addSubViews(title, backBtn, detailPageName, iconImageView, shareBtn)
+        addSubViews(title, backBtn, detailPageName, shareBtn, searchBtn)
         NSLayoutConstraint.activate([
-            iconImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -18),
-            iconImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
-            iconImageView.heightAnchor.constraint(equalToConstant: 65),
-            iconImageView.widthAnchor.constraint(equalToConstant: 125),
+//            iconImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50),
+//            iconImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+//            iconImageView.heightAnchor.constraint(equalToConstant: 50),
+//            iconImageView.widthAnchor.constraint(equalToConstant: 90),
             
             title.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 18),
             title.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
@@ -113,6 +122,11 @@ class TopNavBar: UIView {
             shareBtn.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
             shareBtn.heightAnchor.constraint(equalToConstant: 24),
             shareBtn.widthAnchor.constraint(equalToConstant: 24),
+            
+            searchBtn.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            searchBtn.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            searchBtn.heightAnchor.constraint(equalToConstant: 44),
+            searchBtn.widthAnchor.constraint(equalToConstant: 44),
             
             detailPageName.centerXAnchor.constraint(equalTo: centerXAnchor),
             detailPageName.centerYAnchor.constraint(equalTo: self.backBtn.centerYAnchor, constant: -2),

@@ -6,7 +6,8 @@
 //
 
 import Foundation
+import RxSwift
 
 class RMEpisodeVM : BaseVM {
-    
+    let gotoDetailEpisode = PublishSubject<String>()
 }

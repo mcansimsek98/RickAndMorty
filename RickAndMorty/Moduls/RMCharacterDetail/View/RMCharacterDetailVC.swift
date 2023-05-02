@@ -48,7 +48,7 @@ final class RMCharacterDetailVC: BaseVC<RMCharacterDetailVM> {
                     .init(type: .episodeCount ,value: "\(character.episode.count)")
                 ]),
                 .episodes(viewModel: character.episode.compactMap ({
-                    return RMCharacterEpisodeCVCellVM(episdoeDataURL: $0)
+                    return RMEpisodeCVCellVM(episdoeDataURL: $0)
                 }))
             ]
             self.collectionView?.reloadData()
@@ -65,7 +65,7 @@ extension RMCharacterDetailVC {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(RMCharacterPhotoCVCell.self, forCellWithReuseIdentifier: RMCharacterPhotoCVCell.cellIdentifier)
         cv.register(RMCharacterInfoCVCell.self, forCellWithReuseIdentifier: RMCharacterInfoCVCell.cellIdentifier)
-        cv.register(RMCharacterEpisodeCVCell.self, forCellWithReuseIdentifier: RMCharacterEpisodeCVCell.cellIdentifier)
+        cv.register(RMEpisodeCVCell.self, forCellWithReuseIdentifier: RMEpisodeCVCell.cellIdentifier)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.showsVerticalScrollIndicator = false
         cv.showsHorizontalScrollIndicator = false
@@ -113,7 +113,7 @@ extension RMCharacterDetailVC: UICollectionViewDataSource, UICollectionViewDeleg
             cell.configureInfoCell(with: viewModel[indexPath.row])
             return cell
         case .episodes(let viewModel):
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMCharacterEpisodeCVCell.cellIdentifier, for: indexPath) as! RMCharacterEpisodeCVCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMEpisodeCVCell.cellIdentifier, for: indexPath) as! RMEpisodeCVCell
             cell.configureEpisodeCell(with: viewModel[indexPath.row])
             return cell
         }

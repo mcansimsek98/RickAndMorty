@@ -7,8 +7,8 @@
 
 import UIKit
 
-class RMCharacterEpisodeCVCell: UICollectionViewCell {
-    static let cellIdentifier = "RMCharacterEpisodeCVCell"
+class RMEpisodeCVCell: UICollectionViewCell {
+    static let cellIdentifier = "RMEpisodeCVCell"
     
     private let seasonLabel: UILabel = {
         let label = UILabel()
@@ -55,7 +55,7 @@ class RMCharacterEpisodeCVCell: UICollectionViewCell {
             nameLabel.topAnchor.constraint(equalTo: seasonLabel.bottomAnchor),
             nameLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10),
             nameLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
-            nameLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.4),
+            nameLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.3),
             
             airDateLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
             airDateLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10),
@@ -72,7 +72,7 @@ class RMCharacterEpisodeCVCell: UICollectionViewCell {
         airDateLabel.text = nil
     }
     
-    public func configureEpisodeCell(with viewModel: RMCharacterEpisodeCVCellVM) {
+    public func configureEpisodeCell(with viewModel: RMEpisodeCVCellVM) {
         viewModel.registerForData { [weak self] data in
             DispatchQueue.main.async {
                 self?.nameLabel.text = data.name
