@@ -13,6 +13,7 @@ class RMEpisodeVC: BaseVC<RMEpisodeVM> {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        topNavBar.searchBtn.addTarget(self, action: #selector(didTapSearch), for: .touchUpInside)
     }
 
     override func setUpView() {
@@ -26,6 +27,11 @@ class RMEpisodeVC: BaseVC<RMEpisodeVM> {
             episodeListView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             episodeListView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
+    }
+    
+    @objc
+    private func didTapSearch() {
+        self.viewModel.searchAction.onNext(.init(type: .episode))
     }
 
 }

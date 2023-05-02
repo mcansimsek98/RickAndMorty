@@ -26,6 +26,10 @@ class RMCharacterCoordinator: ReactiveCoordinator<Void> {
         vm.gotoDetailCharacter.subscribe(onNext: { res in
             _ = RMCharacterDetailCoordinator(rootViewController: vc, character: res).start()
         }).disposed(by: disposeBag)
+        
+        vm.searchAction.subscribe(onNext: { config in
+            _ = SearchCoordinator(rootViewController: vc, config: config).start()
+        }).disposed(by: disposeBag)
          
         navigationController.navigationBar.isHidden = true
         navigationController.setViewControllers([vc], animated: true)

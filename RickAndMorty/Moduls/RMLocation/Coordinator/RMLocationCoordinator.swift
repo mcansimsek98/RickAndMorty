@@ -23,6 +23,10 @@ class RMLocationCoordinator: ReactiveCoordinator<Void> {
         let vm = RMLocationVM()
         vc.viewModel = vm
         
+        vm.searchAction.subscribe(onNext: { config in
+            _ = SearchCoordinator(rootViewController: vc, config: config).start()
+        }).disposed(by: disposeBag)
+        
         navigationController.navigationBar.isHidden = true
         navigationController.setViewControllers([vc], animated: true)
         return Observable.never()

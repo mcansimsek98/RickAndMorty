@@ -15,6 +15,7 @@ final class RMCharacterVC: BaseVC<RMCharacterVM> {
     override func viewDidLoad() {
         super.viewDidLoad()
         topNavBar.hasBackButton = false
+        topNavBar.searchBtn.addTarget(self, action: #selector(didTapSearch), for: .touchUpInside)
     }
     
     override func setUpView() {
@@ -28,6 +29,11 @@ final class RMCharacterVC: BaseVC<RMCharacterVM> {
             characterListView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
     }
+    
+    @objc
+    private func didTapSearch() {
+        self.viewModel.searchAction.onNext(.init(type: .character))
+    } 
 
 }
 

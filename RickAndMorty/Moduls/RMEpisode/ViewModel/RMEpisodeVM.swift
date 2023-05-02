@@ -9,5 +9,6 @@ import Foundation
 import RxSwift
 
 class RMEpisodeVM : BaseVM {
+    let searchAction = PublishSubject<Config>()
     let gotoDetailEpisode = PublishSubject<String>()
 }

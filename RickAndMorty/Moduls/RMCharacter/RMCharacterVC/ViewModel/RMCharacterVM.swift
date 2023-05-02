@@ -9,6 +9,7 @@ import Foundation
 import RxSwift
 
 final class RMCharacterVM: BaseVM {
+    let searchAction = PublishSubject<Config>()
     
     let gotoDetailCharacter = PublishSubject<String>()
 }

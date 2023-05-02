@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import RxSwift
 
 class RMLocationVM: BaseVM {
-    
+    let searchAction = PublishSubject<Config>()
+
 }
 

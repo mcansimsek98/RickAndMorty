@@ -36,7 +36,7 @@ class TopNavBar: UIView {
         return button
     }()
     
-    private lazy var shareBtn: UIButton = {
+    public lazy var shareBtn: UIButton = {
         let button = UIButton(frame: .zero)
         button.isUserInteractionEnabled = true
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -44,7 +44,7 @@ class TopNavBar: UIView {
         return button
     }()
     
-    private lazy var searchBtn: UIButton = {
+    public lazy var searchBtn: UIButton = {
         let button = UIButton(frame: .zero)
         button.isUserInteractionEnabled = true
         button.translatesAutoresizingMaskIntoConstraints = false
