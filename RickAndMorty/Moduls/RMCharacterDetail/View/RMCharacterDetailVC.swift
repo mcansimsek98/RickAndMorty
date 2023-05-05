@@ -11,7 +11,7 @@ import RxSwift
 final class RMCharacterDetailVC: BaseVC<RMCharacterDetailVM> {
     
     private var collectionView: UICollectionView?
-    var sections: [SectionType] = []
+    var sections: [SectionTypeOfCharacterDetail] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()

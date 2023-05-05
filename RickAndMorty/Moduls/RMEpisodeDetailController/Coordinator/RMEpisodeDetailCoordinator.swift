@@ -24,6 +24,10 @@ class RMEpisodeDetailCoordinator: ReactiveCoordinator<Void> {
         vc.viewModel = vm
         vm.episodeId = self.episodeId
         
+        vm.goToCharacterDetail.subscribe(onNext: { character in
+            let _ = RMCharacterDetailCoordinator(rootViewController: self.rootViewController, character: character).start()
+        }).disposed(by: disposeBag)
+        
         rootViewController.navigationController?.navigationBar.isHidden = true
         rootViewController.navigationController?.pushViewController(vc, animated: true)
         return Observable.never()

@@ -11,20 +11,6 @@ final class RMCharacterInfoCVCellVM: BaseVM {
     private let type: `Type`
     private let value: String
     
-    static let dateFormater: DateFormatter = {
-        let formater = DateFormatter()
-        formater.dateFormat = "YYYY-MM-dd'T'HH:mm:ss.SSSSZ"
-        formater.timeZone = .current
-        return formater
-    }()
-    
-    static let shortDateFormater: DateFormatter = {
-        let formater = DateFormatter()
-        formater.dateStyle = .medium
-        formater.timeStyle = .short
-        return formater
-    }()
-    
     public var title: String {
         type.displayTitle
     }
@@ -32,8 +18,8 @@ final class RMCharacterInfoCVCellVM: BaseVM {
     public var displayValue: String {
         if value.isEmpty{ return "None"}
         
-        if let date = Self.dateFormater.date(from: value), type == .created {
-            return Self.shortDateFormater.string(from: date)
+        if let date = Date.dateFormater.date(from: value), type == .created {
+            return Date.shortDateFormater.string(from: date)
         }
         return value
     }

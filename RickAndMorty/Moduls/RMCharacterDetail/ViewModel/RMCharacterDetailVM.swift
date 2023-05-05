@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 
-enum SectionType {
+enum SectionTypeOfCharacterDetail {
     case photo(viewModel: RMCharacterPhotoCVCellVM)
     case info(viewModel: [RMCharacterInfoCVCellVM])
     case episodes(viewModel: [RMEpisodeCVCellVM])
