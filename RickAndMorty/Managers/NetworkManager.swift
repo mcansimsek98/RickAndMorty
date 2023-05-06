@@ -43,4 +43,8 @@ extension NetworkManager {
     func getCharacterDetailEpisodes(_ id: String) -> Observable<Episode> {
         NetworkManager.shared.request(.characterDetailEpisode(id: id))
     }
+    
+    func getAllLocation(_ query: String) -> Observable<AllLocationReponse> {
+        NetworkManager.shared.request(.location(query: query))
+    }
 }

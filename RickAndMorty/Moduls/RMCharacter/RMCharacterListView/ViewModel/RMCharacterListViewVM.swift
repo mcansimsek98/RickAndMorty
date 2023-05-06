@@ -67,6 +67,4 @@ final class RMCharacterListViewVM : BaseVM {
         guard let pageQueryParam = urlComponents.queryItems?.first(where: { $0.name == "page" }) else { return nil }
         return pageQueryParam.value
     }
-    
-    
 }
