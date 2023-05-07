@@ -36,9 +36,7 @@ final class LocationTVCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-//        contentView.backgroundColor = UIColor(named: "DarkGrey")
-        contentView.backgroundColor = .clear
-        self.accessoryType = .disclosureIndicator
+        accessoryType = .disclosureIndicator
         contentView.addSubViews(nameLabel,typeLabel,dimensionLabel)
         selectionStyle = .none
         addConstraint()

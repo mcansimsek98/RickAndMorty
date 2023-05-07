@@ -14,7 +14,7 @@ enum API {
     case characterDetailEpisode(id: String)
     case location(query: String)
     case episode(query: String)
-    
+    case locationDetail(id: String)
 }
 
 extension API : TargetType {
@@ -34,6 +34,8 @@ extension API : TargetType {
             return "/episode"
         case .characterDetailEpisode(let id):
             return "/episode/\(id)"
+        case .locationDetail(let id):
+            return "/location/\(id)"
         }
     }
     
@@ -49,7 +51,7 @@ extension API : TargetType {
         switch self {
         case .character(let query), .episode(let query), .location(let query):
             return .requestParameters(parameters: ["page": "\(query)"], encoding: URLEncoding.queryString)
-        case .characterDetail, .characterDetailEpisode:
+        case .characterDetail, .characterDetailEpisode, .locationDetail:
             return .requestPlain
         }
     }

@@ -26,7 +26,7 @@ class RMLocationVC: BaseVC<RMLocationVM> {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: LocationTVCell.identifier, for: indexPath) as? LocationTVCell else {
                 return UITableViewCell()
             }
-            cell.backgroundColor = .clear
+            cell.backgroundColor = UIColor(named: "DarkGrey")?.withAlphaComponent(0.5)
             cell.configure(with: item)
             return cell
         })
@@ -58,13 +58,15 @@ class RMLocationVC: BaseVC<RMLocationVM> {
 
 extension RMLocationVC: UITableViewDelegate {
     func bindViewModel() {
+        ///tableview set datasource
         viewModel.allLocationList
             .bind(to: tableView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
-        
+        ///tableview set delegate
         tableView.rx.setDelegate(self)
             .disposed(by: disposeBag)
         
+        ///tableview pagination
         tableView.rx.contentOffset
             .asDriver()
             .drive(onNext: { [weak self] offset in
@@ -78,5 +80,12 @@ extension RMLocationVC: UITableViewDelegate {
             })
             .disposed(by: disposeBag)
         
+        ///tableview didselect
+        Observable
+            .zip(tableView.rx.itemSelected,
+                 tableView.rx.modelSelected(LocationTVCellVM.self))
+            .bind { [weak self] indexPath, model in
+                self?.viewModel.gotoLocationDetail.onNext("\(model.locationId)")
+            }.disposed(by: disposeBag)
     }
 }

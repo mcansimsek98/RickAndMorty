@@ -11,7 +11,8 @@ import RxCocoa
 import RxDataSources
 
 class RMLocationVM: BaseVM {
-    let searchAction = PublishSubject<Config>()
+    public let gotoLocationDetail = PublishSubject<String>()
+    public let searchAction = PublishSubject<Config>()
     public let allLocationList = BehaviorSubject(value: [DataSourceModel(header: "", items: [LocationTVCellVM]())])
     public var apiInfo: AllLocationReponse.Info? = nil
     public var isLoadingMoreLocation: Bool = false

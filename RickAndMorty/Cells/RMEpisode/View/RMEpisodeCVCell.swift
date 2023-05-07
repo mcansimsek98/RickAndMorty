@@ -33,7 +33,7 @@ class RMEpisodeCVCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = UIColor(named: "DarkGrey")?.withAlphaComponent(0.7)
+        contentView.backgroundColor = UIColor(named: "DarkGrey")?.withAlphaComponent(0.5)
         contentView.layer.cornerRadius = 8
         contentView.layer.borderColor = UIColor.systemBlue.withAlphaComponent(0.4).cgColor
         contentView.layer.borderWidth = 1

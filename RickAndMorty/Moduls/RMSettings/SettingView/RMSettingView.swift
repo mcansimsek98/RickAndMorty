@@ -30,7 +30,7 @@ struct RMSettingView: View {
                     .padding(.leading)
             }
             .padding(0.6)
-            .listRowBackground(Color(uiColor: (UIColor(named: "DarkGrey")?.withAlphaComponent(0.7))!))
+            .listRowBackground(Color(uiColor: (UIColor(named: "DarkGrey")?.withAlphaComponent(0.5))!))
             .onTapGesture {
                 viewModel.onTapHandler(viewModel.type)
             }

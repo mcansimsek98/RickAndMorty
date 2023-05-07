@@ -47,4 +47,8 @@ extension NetworkManager {
     func getAllLocation(_ query: String) -> Observable<AllLocationReponse> {
         NetworkManager.shared.request(.location(query: query))
     }
+    
+    func getLocationDetail(_ id: String) -> Observable<Location> {
+        NetworkManager.shared.request(.locationDetail(id: id))
+    }
 }
