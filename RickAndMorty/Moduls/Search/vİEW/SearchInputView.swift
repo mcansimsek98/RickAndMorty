@@ -87,7 +87,6 @@ final class SearchInputView: UIView {
     private func createOptionButton(_ option: String, _ tag: Int) {
         let button = UIButton()
         button.setAttributedTitle(NSAttributedString(string: option, attributes: [.font: UIFont.systemFont(ofSize: 18, weight: .medium)]), for: .normal)
-        button.setTitle(option, for: .normal)
         button.layer.cornerRadius = 8
         button.backgroundColor = UIColor(named: "DarkGrey")?.withAlphaComponent(0.5)
         button.setTitleColor(UIColor(named: "BlackColor"), for: .normal)
@@ -101,5 +100,12 @@ final class SearchInputView: UIView {
         let tag = sender.tag
         let selected = options[tag]
         delegate?.searchInputView(self, didSelectOptions: selected)
+    }
+    
+    public func update(option: SearchInputViewVM.DynamicOptions, value: String) {
+        guard let buttons = stackView.arrangedSubviews as? [UIButton],
+              let allOptions = viewModel?.options,
+              let index = allOptions.firstIndex(of: option) else { return }
+        buttons[index].setAttributedTitle(NSAttributedString(string: value.uppercased(), attributes: [.font: UIFont.systemFont(ofSize: 18, weight: .medium), .foregroundColor: UIColor.systemBlue]), for: .normal)
     }
 }

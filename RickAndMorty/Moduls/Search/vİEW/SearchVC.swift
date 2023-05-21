@@ -34,6 +34,10 @@ class SearchVC: BaseVC<SearchVM> {
             topNavBar.detailPageName.text = config.type.title
             inputSearchView.configure(with: SearchInputViewVM(type: config.type))
         }
+        
+        viewModel.registerOptionChangeBlock { tuple in
+            self.inputSearchView.update(option: tuple.0, value: tuple.1)
+        }
     }
     
     private func addContstraints() {
@@ -58,13 +62,13 @@ class SearchVC: BaseVC<SearchVM> {
 // MARK: TopNavBarSearchDetailDelegate
 extension SearchVC: TopNavBarSearchDetailDelegate {
     func searchBtnAction() {
-        
+        viewModel.executeSearc()
     }
 }
 
 // MARK: SearchInputViewDelegate
 extension SearchVC: SearchInputViewDelegate {
     func searchInputView(_ inputView: SearchInputView, didSelectOptions option: SearchInputViewVM.DynamicOptions) {
-        print("should present picker")
+        self.viewModel.goToSearchPicerVC.onNext(option)
     }
 }

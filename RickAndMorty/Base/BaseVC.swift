@@ -53,6 +53,7 @@ class BaseVC<T>: UIViewController where T : BaseVM {
 extension BaseVC {
     func addTopNavBar() {
         topNavBar.delegate = self
+        topNavBar.hasSearchDetailButton = false
         view.addSubview(topNavBar)
         NSLayoutConstraint.activate([
             topNavBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant:  -60),

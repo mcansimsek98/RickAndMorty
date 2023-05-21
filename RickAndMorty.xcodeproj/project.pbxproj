@@ -96,6 +96,9 @@
 		B2E373002A1A42C20025ADF7 /* RMNoSearchResulViewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E372FF2A1A42C20025ADF7 /* RMNoSearchResulViewVM.swift */; };
 		B2E373062A1A5C4E0025ADF7 /* SearchInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E373052A1A5C4E0025ADF7 /* SearchInputView.swift */; };
 		B2E373082A1A5C8A0025ADF7 /* SearchInputViewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E373072A1A5C8A0025ADF7 /* SearchInputViewVM.swift */; };
+		B2E3730C2A1A935F0025ADF7 /* RMSearchOptionsPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E3730B2A1A935F0025ADF7 /* RMSearchOptionsPickerVC.swift */; };
+		B2E373102A1A93850025ADF7 /* RMSearchOptionsPickerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E3730F2A1A93850025ADF7 /* RMSearchOptionsPickerVM.swift */; };
+		B2E373132A1A93C10025ADF7 /* RMSearchOptionsPickerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E373122A1A93C10025ADF7 /* RMSearchOptionsPickerCoordinator.swift */; };
 		B2E7DC7E29DDEAAE004140F8 /* RMCharacterPhotoCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E7DC7D29DDEAAE004140F8 /* RMCharacterPhotoCVCell.swift */; };
 		B2E7DC8029DDEAC1004140F8 /* RMCharacterInfoCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E7DC7F29DDEAC1004140F8 /* RMCharacterInfoCVCell.swift */; };
 		B2E7DC8229DDEAD5004140F8 /* RMEpisodeCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E7DC8129DDEAD5004140F8 /* RMEpisodeCVCell.swift */; };
@@ -193,6 +196,9 @@
 		B2E372FF2A1A42C20025ADF7 /* RMNoSearchResulViewVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMNoSearchResulViewVM.swift; sourceTree = "<group>"; };
 		B2E373052A1A5C4E0025ADF7 /* SearchInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInputView.swift; sourceTree = "<group>"; };
 		B2E373072A1A5C8A0025ADF7 /* SearchInputViewVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInputViewVM.swift; sourceTree = "<group>"; };
+		B2E3730B2A1A935F0025ADF7 /* RMSearchOptionsPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMSearchOptionsPickerVC.swift; sourceTree = "<group>"; };
+		B2E3730F2A1A93850025ADF7 /* RMSearchOptionsPickerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMSearchOptionsPickerVM.swift; sourceTree = "<group>"; };
+		B2E373122A1A93C10025ADF7 /* RMSearchOptionsPickerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMSearchOptionsPickerCoordinator.swift; sourceTree = "<group>"; };
 		B2E7DC7D29DDEAAE004140F8 /* RMCharacterPhotoCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMCharacterPhotoCVCell.swift; sourceTree = "<group>"; };
 		B2E7DC7F29DDEAC1004140F8 /* RMCharacterInfoCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMCharacterInfoCVCell.swift; sourceTree = "<group>"; };
 		B2E7DC8129DDEAD5004140F8 /* RMEpisodeCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMEpisodeCVCell.swift; sourceTree = "<group>"; };
@@ -496,6 +502,7 @@
 		B26C08C229ACC213006B4C9C /* Moduls */ = {
 			isa = PBXGroup;
 			children = (
+				B2E373092A1A932D0025ADF7 /* RMSearchOptionsPicker */,
 				B2E372E52A06B1550025ADF7 /* RMLocationDetail */,
 				B240EF0129FEBAB60029CEB8 /* RMEpisodeDetail */,
 				B2D2179529C6220E005726A6 /* RMCharacterDetail */,
@@ -969,6 +976,40 @@
 			path = RMLocationMapCell;
 			sourceTree = "<group>";
 		};
+		B2E373092A1A932D0025ADF7 /* RMSearchOptionsPicker */ = {
+			isa = PBXGroup;
+			children = (
+				B2E373112A1A939C0025ADF7 /* Coordinator */,
+				B2E3730D2A1A936C0025ADF7 /* ViewModel */,
+				B2E3730A2A1A934C0025ADF7 /* View */,
+			);
+			path = RMSearchOptionsPicker;
+			sourceTree = "<group>";
+		};
+		B2E3730A2A1A934C0025ADF7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B2E3730B2A1A935F0025ADF7 /* RMSearchOptionsPickerVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B2E3730D2A1A936C0025ADF7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B2E3730F2A1A93850025ADF7 /* RMSearchOptionsPickerVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B2E373112A1A939C0025ADF7 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				B2E373122A1A93C10025ADF7 /* RMSearchOptionsPickerCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
 		B2E7DC7C29DDEA6E004140F8 /* RMCharacterDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -1159,10 +1200,12 @@
 				B2E373062A1A5C4E0025ADF7 /* SearchInputView.swift in Sources */,
 				B2E7DC8A29DDEB66004140F8 /* RMCharacterInfoCVCellVM.swift in Sources */,
 				B2E372FC2A092AE00025ADF7 /* RMLocationMapCell.swift in Sources */,
+				B2E373102A1A93850025ADF7 /* RMSearchOptionsPickerVM.swift in Sources */,
 				B240EF0829FEBB150029CEB8 /* RMEpisodeDetailVM.swift in Sources */,
 				B284ACC529AE57D200201B4B /* SplashVM.swift in Sources */,
 				B2E372CE2A0593BC0025ADF7 /* RMSettingsTVCell.swift in Sources */,
 				B284ACD229AE74F300201B4B /* Constant.swift in Sources */,
+				B2E3730C2A1A935F0025ADF7 /* RMSearchOptionsPickerVC.swift in Sources */,
 				B26C08AE29ACBE88006B4C9C /* SceneDelegate.swift in Sources */,
 				B249ED8F29ACD22E000F8E73 /* TabBarVC.swift in Sources */,
 				B284ACD529AE7A3100201B4B /* Character.swift in Sources */,
@@ -1173,6 +1216,7 @@
 				B249EDA129ACDC49000F8E73 /* RMEpisodeVC.swift in Sources */,
 				B284ACCA29AE720000201B4B /* NetworkManager.swift in Sources */,
 				B26C08CA29ACC2F9006B4C9C /* RMCharacterCoordinator.swift in Sources */,
+				B2E373132A1A93C10025ADF7 /* RMSearchOptionsPickerCoordinator.swift in Sources */,
 				B2D2179C29C6225B005726A6 /* RMCharacterDetailVM.swift in Sources */,
 				B2D217A929C6443F005726A6 /* RMFooterLoadingCollectionReusableView.swift in Sources */,
 				B2AF8A9F29BCC1FA00F2D4AE /* ConstantEnums.swift in Sources */,

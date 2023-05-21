@@ -11,9 +11,7 @@ import RxCocoa
 
 class SearchCoordinator: ReactiveCoordinator<Void> {
     private let rootViewController: UIViewController
-    
     private let config: Config
-
     
     init(rootViewController: UIViewController,config: Config) {
         self.rootViewController = rootViewController
@@ -25,7 +23,15 @@ class SearchCoordinator: ReactiveCoordinator<Void> {
         let vm = SearchVM()
         vc.viewModel = vm
         vc.config = self.config
-         
+        
+        vm.goToSearchPicerVC.subscribe(onNext: { option in
+            _ = RMSearchOptionsPickerCoordinator(rootViewController: self.rootViewController, options: option, selectionBlock: { selection in
+                DispatchQueue.main.async {
+                    vm.set(value: selection, for: option)
+                }
+            }).start()
+        }).disposed(by: disposeBag)
+        
         
         rootViewController.navigationController?.navigationBar.isHidden = true
         rootViewController.navigationController?.pushViewController(vc, animated: true)

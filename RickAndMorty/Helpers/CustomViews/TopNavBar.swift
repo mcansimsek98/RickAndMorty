@@ -28,7 +28,6 @@ class TopNavBar: UIView {
             detailPageName.isHidden = !hasBackButton
             title.isHidden = hasBackButton
             searchBtn.isHidden = hasBackButton
-            searchDetailBtn.isHidden = !hasBackButton
         }
     }
     

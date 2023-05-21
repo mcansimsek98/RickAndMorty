@@ -15,6 +15,17 @@ final class SearchInputViewVM {
         case status = "Status"
         case gender = "Gender"
         case locationType = "Location Type"
+        
+        var choies: [String] {
+            switch self {
+            case .status:
+                return ["alive", "dead", "unknown"]
+            case .gender:
+                return ["male","female","genderless","unknown"]
+            case .locationType:
+                return ["cluster","planet","microverse"]
+            }
+        }
     }
     
     init(type: Config.`Type`) {
