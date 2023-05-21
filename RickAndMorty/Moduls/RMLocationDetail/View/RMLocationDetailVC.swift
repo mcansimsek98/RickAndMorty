@@ -57,7 +57,10 @@ class RMLocationDetailVC: BaseVC<RMLocationDetailVM> {
                         characterName: character.name ?? "",
                         characterStatus: character.status,
                         characterImageUrl: URL(string: character.image ?? ""))
-                }))
+                })),
+                .map(viewModel: [
+                    .init(title: location.name ?? "")
+                ])
             ]
         }).disposed(by: disposeBag)
     }
@@ -78,6 +81,7 @@ extension RMLocationDetailVC {
         cv.dataSource = self
         cv.register(RMLocationInfoCell.self, forCellWithReuseIdentifier: RMLocationInfoCell.cellIdentifier)
         cv.register(RMCharacterCVCell.self, forCellWithReuseIdentifier: RMCharacterCVCell.cellIdentifier)
+        cv.register(RMLocationMapCell.self, forCellWithReuseIdentifier: RMLocationMapCell.cellIdentifier)
         return cv
     }
     
@@ -87,6 +91,8 @@ extension RMLocationDetailVC {
             return viewModel.createInfoSectionLayout()
         case .character:
             return viewModel.createCharacterSectiOnLayout()
+        case .map:
+            return viewModel.createMapSectionLayout()
         }
     }
 }
@@ -98,10 +104,13 @@ extension RMLocationDetailVC: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch cellVM[section] {
+
         case .info(let viewModel):
             return viewModel.count
         case .character(let viewModel):
             return viewModel.count
+        case .map:
+            return 1
         }
     }
     
@@ -117,13 +126,18 @@ extension RMLocationDetailVC: UICollectionViewDelegate, UICollectionViewDataSour
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMCharacterCVCell.cellIdentifier , for: indexPath) as! RMCharacterCVCell
             cell.configure(with: cellViewModel)
             return cell
+        case .map(let viewModels):
+            let cellViewModel = viewModels[indexPath.row]
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMLocationMapCell.cellIdentifier , for: indexPath) as! RMLocationMapCell
+            cell.configure(with: cellViewModel)
+            return cell
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         switch cellVM[indexPath.section] {
-        case .info:
+        case .info, .map:
             break
         case .character(let viewModel):
             let character = viewModel[indexPath.row].characterId

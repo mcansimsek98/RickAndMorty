@@ -11,6 +11,7 @@ import RxSwift
 enum SectionTypeOfLocationDetail {
     case info(viewModel: [RMLocationInfoCellVM])
     case character(viewModel: [RMCharacterCVCellVM])
+    case map(viewModel: [RMLocationMapCellVM])
 }
 
 final class RMLocationDetailVM: BaseVM {
@@ -58,6 +59,14 @@ final class RMLocationDetailVM: BaseVM {
 }
 
 extension RMLocationDetailVM {
+    func createMapSectionLayout() -> NSCollectionLayoutSection {
+        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
+        item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 8, bottom: 10, trailing: 8)
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(320)), subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
+        return section
+    }
+    
     func createInfoSectionLayout() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
         item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 8, bottom: 10, trailing: 8)
