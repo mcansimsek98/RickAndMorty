@@ -9,7 +9,8 @@ import UIKit
 
 class SearchVC: BaseVC<SearchVM> {
     var config: Config?
-    private var searchView = SearchView()
+    private let inputSearchView = SearchInputView()
+    private let noResultView = RMNoSearchResulView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,29 +18,53 @@ class SearchVC: BaseVC<SearchVM> {
         addContstraints()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.presentKeyboard()
+    }
+    
     private func configure() {
         topNavBar.hasBackButton = true
         topNavBar.shareBtn.isHidden = true
         topNavBar.searchDelegate = self
         topNavBar.hasSearchDetailButton = true
-        view.addSubview(searchView)
+        view.addSubViews(inputSearchView, noResultView)
+        inputSearchView.delegate = self
         if let config = config {
             topNavBar.detailPageName.text = config.type.title
+            inputSearchView.configure(with: SearchInputViewVM(type: config.type))
         }
     }
     
     private func addContstraints() {
         NSLayoutConstraint.activate([
-            searchView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60),
-            searchView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            searchView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
-            searchView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
+            inputSearchView.topAnchor.constraint(equalTo: self.topNavBar.bottomAnchor),
+            inputSearchView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            inputSearchView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            inputSearchView.heightAnchor.constraint(equalToConstant: config?.type == .episode ? 55 : 110),
+            
+            noResultView.widthAnchor.constraint(equalToConstant: 150),
+            noResultView.heightAnchor.constraint(equalToConstant: 150),
+            noResultView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            noResultView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
+    }
+    
+    public func presentKeyboard() {
+        inputSearchView.presentKeyboard()
     }
 }
 
+// MARK: TopNavBarSearchDetailDelegate
 extension SearchVC: TopNavBarSearchDetailDelegate {
     func searchBtnAction() {
         
+    }
+}
+
+// MARK: SearchInputViewDelegate
+extension SearchVC: SearchInputViewDelegate {
+    func searchInputView(_ inputView: SearchInputView, didSelectOptions option: SearchInputViewVM.DynamicOptions) {
+        print("should present picker")
     }
 }
