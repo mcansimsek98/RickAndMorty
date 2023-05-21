@@ -14,6 +14,10 @@ protocol TopNavBarDelegate: AnyObject {
     func shareBtnAction()
 }
 
+protocol TopNavBarSearchDetailDelegate: AnyObject {
+    func searchBtnAction()
+}
+
 @IBDesignable
 class TopNavBar: UIView {
     
@@ -23,8 +27,14 @@ class TopNavBar: UIView {
             shareBtn.isHidden = !hasBackButton
             detailPageName.isHidden = !hasBackButton
             title.isHidden = hasBackButton
-//            iconImageView.isHidden = hasBackButton
             searchBtn.isHidden = hasBackButton
+            searchDetailBtn.isHidden = !hasBackButton
+        }
+    }
+    
+    @IBInspectable var hasSearchDetailButton:Bool = false {
+        didSet {
+            searchDetailBtn.isHidden = !hasSearchDetailButton
         }
     }
     
@@ -52,12 +62,14 @@ class TopNavBar: UIView {
         return button
     }()
     
-//    private var iconImageView: UIImageView = {
-//        let iv = UIImageView()
-//        iv.image = UIImage(named: "rickandmortyicons")
-//        iv.translatesAutoresizingMaskIntoConstraints = false
-//        return iv
-//    }()
+    public lazy var searchDetailBtn: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.isUserInteractionEnabled = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Search", for: .normal)
+        button.setTitleColor(UIColor(named: "BlackColor"), for: .normal)
+        return button
+    }()
     
     public var detailPageName: UILabel = {
         let label = UILabel()
@@ -77,6 +89,7 @@ class TopNavBar: UIView {
     }()
     
     weak  var delegate: TopNavBarDelegate?
+    weak var searchDelegate: TopNavBarSearchDetailDelegate?
     private let disposeBag = DisposeBag()
     
     override init(frame: CGRect) {
@@ -102,13 +115,8 @@ class TopNavBar: UIView {
     }
 
     private func layout() {
-        addSubViews(title, backBtn, detailPageName, shareBtn, searchBtn)
+        addSubViews(title, backBtn, detailPageName, shareBtn, searchBtn, searchDetailBtn)
         NSLayoutConstraint.activate([
-//            iconImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50),
-//            iconImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
-//            iconImageView.heightAnchor.constraint(equalToConstant: 50),
-//            iconImageView.widthAnchor.constraint(equalToConstant: 90),
-            
             title.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 18),
             title.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
             title.heightAnchor.constraint(equalToConstant: 42),
@@ -128,6 +136,10 @@ class TopNavBar: UIView {
             searchBtn.heightAnchor.constraint(equalToConstant: 44),
             searchBtn.widthAnchor.constraint(equalToConstant: 44),
             
+            searchDetailBtn.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            searchDetailBtn.bottomAnchor.constraint(equalTo: bottomAnchor),
+            searchDetailBtn.heightAnchor.constraint(equalToConstant: 42),
+            
             detailPageName.centerXAnchor.constraint(equalTo: centerXAnchor),
             detailPageName.centerYAnchor.constraint(equalTo: self.backBtn.centerYAnchor, constant: -2),
             detailPageName.heightAnchor.constraint(equalToConstant: 30),
@@ -145,6 +157,10 @@ extension TopNavBar {
         
         self.shareBtn.rx.tap.bind {
             self.delegate?.shareBtnAction()
+        }.disposed(by: disposeBag)
+        
+        self.searchDetailBtn.rx.tap.bind {
+            self.searchDelegate?.searchBtnAction()
         }.disposed(by: disposeBag)
     }
 }

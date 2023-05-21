@@ -20,19 +20,12 @@ class SearchVC: BaseVC<SearchVM> {
     private func configure() {
         topNavBar.hasBackButton = true
         topNavBar.shareBtn.isHidden = true
+        topNavBar.searchDelegate = self
+        topNavBar.hasSearchDetailButton = true
         view.addSubview(searchView)
         if let config = config {
             topNavBar.detailPageName.text = config.type.title
         }
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search",
-                                                            style: .done,
-                                                            target: self,
-                                                            action: #selector(didTapExecuteSearch))
-    }
-    
-    @objc
-    private func didTapExecuteSearch() {
-//        viewModel.executeSearch()
     }
     
     private func addContstraints() {
@@ -42,5 +35,11 @@ class SearchVC: BaseVC<SearchVM> {
             searchView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             searchView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
         ])
+    }
+}
+
+extension SearchVC: TopNavBarSearchDetailDelegate {
+    func searchBtnAction() {
+        
     }
 }
