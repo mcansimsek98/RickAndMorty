@@ -8,7 +8,7 @@
 import UIKit
 
 class SearchVC: BaseVC<SearchVM> {
-    var config: Config?
+    
     private let inputSearchView = SearchInputView()
     private let noResultView = RMNoSearchResulView()
     
@@ -30,7 +30,7 @@ class SearchVC: BaseVC<SearchVM> {
         topNavBar.hasSearchDetailButton = true
         view.addSubViews(inputSearchView, noResultView)
         inputSearchView.delegate = self
-        if let config = config {
+        if let config = viewModel.config {
             topNavBar.detailPageName.text = config.type.title
             inputSearchView.configure(with: SearchInputViewVM(type: config.type))
         }
@@ -45,7 +45,7 @@ class SearchVC: BaseVC<SearchVM> {
             inputSearchView.topAnchor.constraint(equalTo: self.topNavBar.bottomAnchor),
             inputSearchView.leftAnchor.constraint(equalTo: view.leftAnchor),
             inputSearchView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            inputSearchView.heightAnchor.constraint(equalToConstant: config?.type == .episode ? 55 : 110),
+            inputSearchView.heightAnchor.constraint(equalToConstant: viewModel.config?.type == .episode ? 55 : 110),
             
             noResultView.widthAnchor.constraint(equalToConstant: 150),
             noResultView.heightAnchor.constraint(equalToConstant: 150),
@@ -62,7 +62,7 @@ class SearchVC: BaseVC<SearchVM> {
 // MARK: TopNavBarSearchDetailDelegate
 extension SearchVC: TopNavBarSearchDetailDelegate {
     func searchBtnAction() {
-        viewModel.executeSearc()
+        viewModel.executeSearch()
     }
 }
 
@@ -70,5 +70,14 @@ extension SearchVC: TopNavBarSearchDetailDelegate {
 extension SearchVC: SearchInputViewDelegate {
     func searchInputView(_ inputView: SearchInputView, didSelectOptions option: SearchInputViewVM.DynamicOptions) {
         self.viewModel.goToSearchPicerVC.onNext(option)
+    }
+    
+    func searchInputView(_ inputView: SearchInputView, didChangeSearchText text: String?) {
+        guard let text = text else { return }
+        viewModel.set(query: text)
+    }
+    
+    func searchInputViewDidTapSearchKeybordBtn(_ inputView: SearchInputView) {
+        viewModel.executeSearch()
     }
 }

@@ -9,8 +9,10 @@ import UIKit
 
 protocol SearchInputViewDelegate: AnyObject {
     func searchInputView(_ inputView: SearchInputView,
-                         didSelectOptions option: SearchInputViewVM.DynamicOptions
-    )
+                         didSelectOptions option: SearchInputViewVM.DynamicOptions)
+    func searchInputView(_ inputView: SearchInputView,
+                         didChangeSearchText text: String?)
+    func searchInputViewDidTapSearchKeybordBtn(_ inputView: SearchInputView)
 }
 
 
@@ -47,6 +49,7 @@ final class SearchInputView: UIView {
         translatesAutoresizingMaskIntoConstraints = false
         addSubViews(searchBar, stackView)
         addConstraints()
+        searchBar.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -107,5 +110,16 @@ final class SearchInputView: UIView {
               let allOptions = viewModel?.options,
               let index = allOptions.firstIndex(of: option) else { return }
         buttons[index].setAttributedTitle(NSAttributedString(string: value.uppercased(), attributes: [.font: UIFont.systemFont(ofSize: 18, weight: .medium), .foregroundColor: UIColor.systemBlue]), for: .normal)
+    }
+}
+
+extension SearchInputView: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.delegate?.searchInputView(self, didChangeSearchText: searchText)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        self.delegate?.searchInputViewDidTapSearchKeybordBtn(self)
     }
 }

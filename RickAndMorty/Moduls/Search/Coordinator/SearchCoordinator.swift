@@ -22,7 +22,7 @@ class SearchCoordinator: ReactiveCoordinator<Void> {
         let vc = SearchVC()
         let vm = SearchVM()
         vc.viewModel = vm
-        vc.config = self.config
+        vm.config = self.config
         
         vm.goToSearchPicerVC.subscribe(onNext: { option in
             _ = RMSearchOptionsPickerCoordinator(rootViewController: self.rootViewController, options: option, selectionBlock: { selection in

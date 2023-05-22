@@ -52,7 +52,14 @@ extension NetworkManager {
         NetworkManager.shared.request(.locationDetail(id: id))
     }
     
-//    func search(_ query: String, _ parm: SearchQueryType) -> Observable<Void> {
-//        NetworkManager.shared.request(.search(parm: parm, query: query))
-//    }
+    func searchCharacter(_ query: String, parm: [String : String]) -> Observable<AllCharactersResponse> {
+        NetworkManager.shared.request(.searchCharacter(query: query, parm: parm))
+    }
+    func searchLocation(_ query: String, parm: [String : String]) -> Observable<AllLocationReponse> {
+        NetworkManager.shared.request(.searchlocation(query: query, parm: parm))
+    }
+    func searchEpisode(_ query: String, parm: [String: String]) -> Observable<AllEpisodeResponse> {
+        NetworkManager.shared.request(.searchEpisode(query: query, parm: parm))
+    }
+    
 }

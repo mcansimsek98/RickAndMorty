@@ -8,23 +8,6 @@
 import Foundation
 import Moya
 
-enum SearchQueryType {
-    case character
-    case episode
-    case location
-    
-    var model: Any {
-        switch self {
-        case .character:
-            return Character.self
-        case .episode:
-            return Episode.self
-        case .location:
-            return Location.self
-        }
-    }
-}
-
 enum API {
     case character(query: String)
     case characterDetail(id: String)
@@ -32,7 +15,10 @@ enum API {
     case location(query: String)
     case episode(query: String)
     case locationDetail(id: String)
-    case search(parm: SearchQueryType, query: String)
+    case searchCharacter(query: String, parm: [String: String])
+    case searchEpisode(query: String, parm: [String: String])
+    case searchlocation(query: String, parm: [String: String])
+
 }
 
 extension API : TargetType {
@@ -54,15 +40,12 @@ extension API : TargetType {
             return "/episode/\(id)"
         case .locationDetail(let id):
             return "/location/\(id)"
-        case .search(let parm, _):
-            switch parm {
-            case .character:
-                return "/character/"
-            case .episode:
-                return "/episode/"
-            case .location:
-                return "/location/"
-            }
+        case .searchCharacter:
+            return "/character/"
+        case .searchEpisode:
+            return "/episode/"
+        case .searchlocation:
+            return "/location/"
         }
     }
     
@@ -80,15 +63,13 @@ extension API : TargetType {
             return .requestParameters(parameters: ["page": "\(query)"], encoding: URLEncoding.queryString)
         case .characterDetail, .characterDetailEpisode, .locationDetail:
             return .requestPlain
-        case .search(let parm, let query):
-            switch parm {
-            case .character:
-                return .requestParameters(parameters: ["name": "\(query)", "status": "\(query)", "gender": "\(query)"], encoding: URLEncoding.queryString)
-            case .episode:
-                return .requestParameters(parameters: ["name": "\(query)"], encoding: URLEncoding.queryString)
-            case .location:
-                return .requestParameters(parameters: ["name": "\(query)", "type": "\(query)"], encoding: URLEncoding.queryString)
+            
+        case .searchCharacter(let query, let parm), .searchEpisode(let query, let parm), .searchlocation(let query, let parm):
+            var dic = ["$name": "\(query)"]
+            for (option, value) in parm {
+               dic["$\(option)"] = value
             }
+            return .requestParameters(parameters: dic, encoding: URLEncoding.queryString)
         }
     }
     
