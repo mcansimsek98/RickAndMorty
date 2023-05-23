@@ -6,16 +6,19 @@
 //
 
 import UIKit
+import RxSwift
 
 class SearchVC: BaseVC<SearchVM> {
     
     private let inputSearchView = SearchInputView()
     private let noResultView = RMNoSearchResulView()
+    private let resultView = SearchResultView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
         addContstraints()
+        setUpHandler()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -28,19 +31,33 @@ class SearchVC: BaseVC<SearchVM> {
         topNavBar.shareBtn.isHidden = true
         topNavBar.searchDelegate = self
         topNavBar.hasSearchDetailButton = true
-        view.addSubViews(inputSearchView, noResultView)
+        view.addSubViews(inputSearchView, resultView, noResultView)
         inputSearchView.delegate = self
+        resultView.delegate = self
         if let config = viewModel.config {
             topNavBar.detailPageName.text = config.type.title
             inputSearchView.configure(with: SearchInputViewVM(type: config.type))
         }
-        
+    }
+    
+    private func setUpHandler() {
         viewModel.registerOptionChangeBlock { tuple in
             self.inputSearchView.update(option: tuple.0, value: tuple.1)
         }
         
-        viewModel.registerSearchResultHandler { results in
-            print(results)
+        viewModel.registerSearchResultHandler { [weak self] results in
+            DispatchQueue.main.async {
+                self?.resultView.configure(with: results)
+                self?.noResultView.isHidden = true
+                self?.resultView.isHidden = false
+            }
+        }
+        
+        viewModel.registerNoResultHandler { [weak self] in
+            DispatchQueue.main.async {
+                self?.noResultView.isHidden = false
+                self?.resultView.isHidden = true
+            }
         }
     }
     
@@ -51,6 +68,11 @@ class SearchVC: BaseVC<SearchVM> {
             inputSearchView.rightAnchor.constraint(equalTo: view.rightAnchor),
             inputSearchView.heightAnchor.constraint(equalToConstant: viewModel.config?.type == .episode ? 55 : 110),
             
+            resultView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            resultView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            resultView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            resultView.topAnchor.constraint(equalTo: inputSearchView.bottomAnchor),
+                        
             noResultView.widthAnchor.constraint(equalToConstant: 150),
             noResultView.heightAnchor.constraint(equalToConstant: 150),
             noResultView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -84,4 +106,13 @@ extension SearchVC: SearchInputViewDelegate {
     func searchInputViewDidTapSearchKeybordBtn(_ inputView: SearchInputView) {
         viewModel.executeSearch()
     }
+}
+
+//MARK: SearchResultViewDelegate
+extension SearchVC: SearchResultViewDelegate {
+    func rmSearchResultView(_ resultView: SearchResultView, didTap locationId: Int) {
+        self.viewModel.gotoLocationDetail.onNext("\(locationId)")
+    }
+    
+    
 }

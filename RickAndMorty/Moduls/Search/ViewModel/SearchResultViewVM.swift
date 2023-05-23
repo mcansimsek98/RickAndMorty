@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum SearchResultVM {
+enum SearchResultViewVM {
     case characters([RMCharacterCVCellVM])
     case episode([RMEpisodeCVCellVM])
     case locations([LocationTVCellVM])

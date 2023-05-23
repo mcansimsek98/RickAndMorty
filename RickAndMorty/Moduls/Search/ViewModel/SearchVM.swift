@@ -10,11 +10,13 @@ import RxSwift
 
 final class SearchVM: BaseVM {
     var config: Config?
-    
+    public let gotoLocationDetail = PublishSubject<String>()
+
     let goToSearchPicerVC = PublishSubject<SearchInputViewVM.DynamicOptions>()
     private var optionMap: [SearchInputViewVM.DynamicOptions: String] = [:]
     private var optionMapUpdateBlock: (((SearchInputViewVM.DynamicOptions, String)) -> Void)?
-    private var searchResultHandler: ((SearchResultVM) -> Void)?
+    private var searchResultHandler: ((SearchResultViewVM) -> Void)?
+    private var noResultHandler: (() -> Void)?
     private var searchTetx = ""
     
     public func set(value: String, for option: SearchInputViewVM.DynamicOptions) {
@@ -26,9 +28,11 @@ final class SearchVM: BaseVM {
     public func registerOptionChangeBlock(_ block: @escaping ((SearchInputViewVM.DynamicOptions, String)) -> Void) {
         self.optionMapUpdateBlock = block
     }
-    
-    public func registerSearchResultHandler(_ block: @escaping (SearchResultVM) -> Void) {
+    public func registerSearchResultHandler(_ block: @escaping (SearchResultViewVM) -> Void) {
         self.searchResultHandler = block
+    }
+    public func registerNoResultHandler(_ block: @escaping () -> Void) {
+        self.noResultHandler = block
     }
     
     public func set(query text: String) {
@@ -49,7 +53,7 @@ final class SearchVM: BaseVM {
                 guard let self = self else { return }
                 self.processSearchResult(model: characters)
             }, onError: { error in
-                self.showFailError(error: error)
+                self.handleNoResult()
             }).disposed(by: disposeBag)
             
         case .episode:
@@ -57,7 +61,7 @@ final class SearchVM: BaseVM {
                 guard let self = self else { return }
                 self.processSearchResult(model: episode)
             }, onError: { error in
-                self.showFailError(error: error)
+                self.handleNoResult()
             }).disposed(by: disposeBag)
             
         case .location:
@@ -65,13 +69,13 @@ final class SearchVM: BaseVM {
                 guard let self = self else { return }
                 self.processSearchResult(model: location)
             }, onError: { error in
-                self.showFailError(error: error)
+                self.handleNoResult()
             }).disposed(by: disposeBag)
         }
     }
     
     private func processSearchResult(model: Codable) {
-        var resultVM: SearchResultVM?
+        var resultVM: SearchResultViewVM?
         if let characterResults = model as? AllCharactersResponse {
             resultVM = .characters(characterResults.results.compactMap({
                 return RMCharacterCVCellVM(characterId: $0.id ?? 0,
@@ -87,14 +91,16 @@ final class SearchVM: BaseVM {
             resultVM = .locations(locationResults.results.compactMap({
                 return LocationTVCellVM(locationId: $0.id ?? 0, location: $0)
             }))
-        }else {
-            //no result
         }
         
         if let results = resultVM {
             self.searchResultHandler?(results)
         }else {
-            //error
+            self.handleNoResult()
         }
+    }
+    
+    private func handleNoResult() {
+        self.noResultHandler?()
     }
 }

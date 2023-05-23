@@ -32,6 +32,10 @@ class SearchCoordinator: ReactiveCoordinator<Void> {
             }).start()
         }).disposed(by: disposeBag)
         
+        vm.gotoLocationDetail.subscribe(onNext: { locationId in
+            _ = RMLocationDetailCoordinator(rootViewController: vc, locationId: locationId).start()
+        }).disposed(by: disposeBag)
+        
         
         rootViewController.navigationController?.navigationBar.isHidden = true
         rootViewController.navigationController?.pushViewController(vc, animated: true)

@@ -115,14 +115,11 @@ extension RMCharacterListView: UIScrollViewDelegate {
               let nextUrlString = self.viewModel?.apiInfo?.next else {
             return
         }
-//        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { t in
-            let offset = scrollView.contentOffset.y
-            let totalContentHeight = scrollView.contentSize.height
-            let totalScrollViewFixedHeight = scrollView.frame.size.height
-            if offset >= (totalContentHeight - totalScrollViewFixedHeight - 50) {
-                self.viewModel?.fetchAdditionalCharacter(url: nextUrlString)
-            }
-//            t.invalidate()
-//        }
+        let offset = scrollView.contentOffset.y
+        let totalContentHeight = scrollView.contentSize.height
+        let totalScrollViewFixedHeight = scrollView.frame.size.height
+        if offset >= (totalContentHeight - totalScrollViewFixedHeight - 50) {
+            self.viewModel?.fetchAdditionalCharacter(url: nextUrlString)
+        }
     }
 }

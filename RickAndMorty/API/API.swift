@@ -65,9 +65,9 @@ extension API : TargetType {
             return .requestPlain
             
         case .searchCharacter(let query, let parm), .searchEpisode(let query, let parm), .searchlocation(let query, let parm):
-            var dic = ["$name": "\(query)"]
+            var dic = ["name": "\(query)"]
             for (option, value) in parm {
-               dic["$\(option)"] = value
+               dic["\(option)"] = value
             }
             return .requestParameters(parameters: dic, encoding: URLEncoding.queryString)
         }
