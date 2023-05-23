@@ -14,7 +14,7 @@ final class SearchVM: BaseVM {
     let goToSearchPicerVC = PublishSubject<SearchInputViewVM.DynamicOptions>()
     private var optionMap: [SearchInputViewVM.DynamicOptions: String] = [:]
     private var optionMapUpdateBlock: (((SearchInputViewVM.DynamicOptions, String)) -> Void)?
-    private var searchResultHandler: (() -> Void)?
+    private var searchResultHandler: ((SearchResultVM) -> Void)?
     private var searchTetx = ""
     
     public func set(value: String, for option: SearchInputViewVM.DynamicOptions) {
@@ -27,7 +27,7 @@ final class SearchVM: BaseVM {
         self.optionMapUpdateBlock = block
     }
     
-    public func registerSearchResultHandler(_ block: @escaping () -> Void) {
+    public func registerSearchResultHandler(_ block: @escaping (SearchResultVM) -> Void) {
         self.searchResultHandler = block
     }
     
@@ -45,9 +45,9 @@ final class SearchVM: BaseVM {
         
         switch config.type {
         case .character:
-            NetworkManager.shared.searchCharacter(searchTetx, parm: dic).subscribe(onNext: { [weak self] character in
+            NetworkManager.shared.searchCharacter(searchTetx, parm: dic).subscribe(onNext: { [weak self] characters in
                 guard let self = self else { return }
-                print("character", character.results.count)
+                self.processSearchResult(model: characters)
             }, onError: { error in
                 self.showFailError(error: error)
             }).disposed(by: disposeBag)
@@ -55,7 +55,7 @@ final class SearchVM: BaseVM {
         case .episode:
             NetworkManager.shared.searchEpisode(searchTetx, parm: dic).subscribe(onNext: { [weak self] episode in
                 guard let self = self else { return }
-                print("episode", episode.results.count)
+                self.processSearchResult(model: episode)
             }, onError: { error in
                 self.showFailError(error: error)
             }).disposed(by: disposeBag)
@@ -63,10 +63,38 @@ final class SearchVM: BaseVM {
         case .location:
             NetworkManager.shared.searchLocation(searchTetx, parm: dic).subscribe(onNext: { [weak self] location in
                 guard let self = self else { return }
-                print("location", location.results.count)
+                self.processSearchResult(model: location)
             }, onError: { error in
                 self.showFailError(error: error)
             }).disposed(by: disposeBag)
+        }
+    }
+    
+    private func processSearchResult(model: Codable) {
+        var resultVM: SearchResultVM?
+        if let characterResults = model as? AllCharactersResponse {
+            resultVM = .characters(characterResults.results.compactMap({
+                return RMCharacterCVCellVM(characterId: $0.id ?? 0,
+                                           characterName: $0.name ?? "",
+                                           characterStatus: $0.status,
+                                           characterImageUrl: URL(string: $0.image ?? ""))
+            }))
+        } else if let episodeResults = model as? AllEpisodeResponse {
+            resultVM = .episode(episodeResults.results.compactMap({
+                return RMEpisodeCVCellVM(episdoeDataURL: $0.url)
+            }))
+        } else if let locationResults = model as? AllLocationReponse {
+            resultVM = .locations(locationResults.results.compactMap({
+                return LocationTVCellVM(locationId: $0.id ?? 0, location: $0)
+            }))
+        }else {
+            //no result
+        }
+        
+        if let results = resultVM {
+            self.searchResultHandler?(results)
+        }else {
+            //error
         }
     }
 }

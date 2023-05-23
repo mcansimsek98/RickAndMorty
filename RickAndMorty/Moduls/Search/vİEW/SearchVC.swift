@@ -38,6 +38,10 @@ class SearchVC: BaseVC<SearchVM> {
         viewModel.registerOptionChangeBlock { tuple in
             self.inputSearchView.update(option: tuple.0, value: tuple.1)
         }
+        
+        viewModel.registerSearchResultHandler { results in
+            print(results)
+        }
     }
     
     private func addContstraints() {
