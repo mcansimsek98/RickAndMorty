@@ -36,6 +36,13 @@ class SearchCoordinator: ReactiveCoordinator<Void> {
             _ = RMLocationDetailCoordinator(rootViewController: vc, locationId: locationId).start()
         }).disposed(by: disposeBag)
         
+        vm.gotoEpisodeDetail.subscribe(onNext: { episode in
+            let _ = RMEpisodeDetailCoordinator(rootViewController: vc, episodeId: episode).start()
+        }).disposed(by: disposeBag)
+        
+        vm.gotoCharacterDetail.subscribe(onNext: { res in
+            _ = RMCharacterDetailCoordinator(rootViewController: vc, character: res).start()
+        }).disposed(by: disposeBag)
         
         rootViewController.navigationController?.navigationBar.isHidden = true
         rootViewController.navigationController?.pushViewController(vc, animated: true)

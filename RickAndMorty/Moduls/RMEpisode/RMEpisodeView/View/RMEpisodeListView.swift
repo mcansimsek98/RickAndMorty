@@ -100,9 +100,9 @@ final class RMEpisodeListView: UIView {
 //MARK: CollectionViewLayout guide
 extension RMEpisodeListView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let bounds = UIScreen.main.bounds
+        let bounds = collectionView.bounds
         let width = bounds.width - 20
-        return CGSize(width: width, height: width * 0.3)
+        return  UIDevice.isiPhone ? CGSize(width: width, height: width * 0.3) : CGSize(width: width, height: width * 0.1)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {

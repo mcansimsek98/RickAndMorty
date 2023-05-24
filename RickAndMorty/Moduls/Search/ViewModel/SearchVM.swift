@@ -11,7 +11,9 @@ import RxSwift
 final class SearchVM: BaseVM {
     var config: Config?
     public let gotoLocationDetail = PublishSubject<String>()
-
+    public let gotoEpisodeDetail = PublishSubject<String>()
+    public let gotoCharacterDetail = PublishSubject<String>()
+    
     let goToSearchPicerVC = PublishSubject<SearchInputViewVM.DynamicOptions>()
     private var optionMap: [SearchInputViewVM.DynamicOptions: String] = [:]
     private var optionMapUpdateBlock: (((SearchInputViewVM.DynamicOptions, String)) -> Void)?

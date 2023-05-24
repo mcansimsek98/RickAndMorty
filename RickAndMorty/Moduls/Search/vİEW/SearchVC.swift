@@ -110,9 +110,15 @@ extension SearchVC: SearchInputViewDelegate {
 
 //MARK: SearchResultViewDelegate
 extension SearchVC: SearchResultViewDelegate {
-    func rmSearchResultView(_ resultView: SearchResultView, didTap locationId: Int) {
+    func rmSearchResultView(_ resultView: SearchResultView, didTapLocation locationId: Int) {
         self.viewModel.gotoLocationDetail.onNext("\(locationId)")
     }
     
+    func rmSearchResultView(_ resultView: SearchResultView, didTapEpisode episodeId: String) {
+        self.viewModel.gotoEpisodeDetail.onNext(episodeId)
+    }
     
+    func rmSearchResultView(_ resultView: SearchResultView, didTapChracter chracterId: Int) {
+        self.viewModel.gotoCharacterDetail.onNext("\(chracterId)")
+    }
 }

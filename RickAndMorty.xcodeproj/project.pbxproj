@@ -61,9 +61,9 @@
 		B2A23AEB2A01549600FEEEC0 /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A23AEA2A01549600FEEEC0 /* SearchCoordinator.swift */; };
 		B2A23AF02A05617000FEEEC0 /* RMEpisodeInfoCVCellVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A23AEF2A05617000FEEEC0 /* RMEpisodeInfoCVCellVM.swift */; };
 		B2A23AF22A05619400FEEEC0 /* RMEpisodeInfoCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A23AF12A05619400FEEEC0 /* RMEpisodeInfoCVCell.swift */; };
+		B2A27DD32A1E73BF00626117 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A27DD22A1E73BF00626117 /* UIDevice+Extension.swift */; };
 		B2A848F829AFC4DC00D3F9E4 /* AllCharactersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A848F729AFC4DC00D3F9E4 /* AllCharactersResponse.swift */; };
 		B2AF8A9D29BCC07300F2D4AE /* RMCharacterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AF8A9C29BCC07300F2D4AE /* RMCharacterListView.swift */; };
-		B2AF8A9F29BCC1FA00F2D4AE /* ConstantEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AF8A9E29BCC1FA00F2D4AE /* ConstantEnums.swift */; };
 		B2AF8AAE29BCC7DC00F2D4AE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B2AF8AB029BCC7DC00F2D4AE /* Localizable.strings */; };
 		B2AF8AB529BCCD0200F2D4AE /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AF8AB429BCCD0200F2D4AE /* String+Extension.swift */; };
 		B2CF3D3729C8943B00883436 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = B2CF3D3629C8943B00883436 /* RxDataSources */; };
@@ -163,9 +163,9 @@
 		B2A23AEA2A01549600FEEEC0 /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
 		B2A23AEF2A05617000FEEEC0 /* RMEpisodeInfoCVCellVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMEpisodeInfoCVCellVM.swift; sourceTree = "<group>"; };
 		B2A23AF12A05619400FEEEC0 /* RMEpisodeInfoCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMEpisodeInfoCVCell.swift; sourceTree = "<group>"; };
+		B2A27DD22A1E73BF00626117 /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		B2A848F729AFC4DC00D3F9E4 /* AllCharactersResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCharactersResponse.swift; sourceTree = "<group>"; };
 		B2AF8A9C29BCC07300F2D4AE /* RMCharacterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMCharacterListView.swift; sourceTree = "<group>"; };
-		B2AF8A9E29BCC1FA00F2D4AE /* ConstantEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantEnums.swift; sourceTree = "<group>"; };
 		B2AF8AAF29BCC7DC00F2D4AE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B2AF8AB129BCC7EB00F2D4AE /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B2AF8AB429BCCD0200F2D4AE /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
@@ -607,7 +607,6 @@
 			isa = PBXGroup;
 			children = (
 				B284ACD129AE74F300201B4B /* Constant.swift */,
-				B2AF8A9E29BCC1FA00F2D4AE /* ConstantEnums.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -761,6 +760,7 @@
 				B2D9A7EB29BF1C3C003B32E7 /* UIView+Extension.swift */,
 				B2E372C62A058C170025ADF7 /* Date+Extension.swift */,
 				B2E372E32A0677F10025ADF7 /* TableView+Extension.swift */,
+				B2A27DD22A1E73BF00626117 /* UIDevice+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1167,6 +1167,7 @@
 				B2E372D32A05998E0025ADF7 /* RMSettingView.swift in Sources */,
 				B2A23AE82A01548100FEEEC0 /* SearchVM.swift in Sources */,
 				B284ACCC29AE726000201B4B /* API.swift in Sources */,
+				B2A27DD32A1E73BF00626117 /* UIDevice+Extension.swift in Sources */,
 				B2D9A7EE29BF54CB003B32E7 /* RMCharacterListViewVM.swift in Sources */,
 				B26C08C829ACC2E0006B4C9C /* RMCharacterVM.swift in Sources */,
 				B2E372F52A0804EE0025ADF7 /* RMLocationInfoCellVM.swift in Sources */,
@@ -1227,7 +1228,6 @@
 				B2E373132A1A93C10025ADF7 /* RMSearchOptionsPickerCoordinator.swift in Sources */,
 				B2D2179C29C6225B005726A6 /* RMCharacterDetailVM.swift in Sources */,
 				B2D217A929C6443F005726A6 /* RMFooterLoadingCollectionReusableView.swift in Sources */,
-				B2AF8A9F29BCC1FA00F2D4AE /* ConstantEnums.swift in Sources */,
 				B26C08D429ACC3A9006B4C9C /* ReactiveCoordinator.swift in Sources */,
 				B284ACDB29AE7CC400201B4B /* RMOrigin.swift in Sources */,
 			);
@@ -1397,10 +1397,10 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1429,10 +1429,10 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

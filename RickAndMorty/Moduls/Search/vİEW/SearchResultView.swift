@@ -9,7 +9,10 @@ import UIKit
 import Differentiator
 
 protocol SearchResultViewDelegate: AnyObject {
-    func rmSearchResultView(_ resultView: SearchResultView, didTap locationId: Int)
+    func rmSearchResultView(_ resultView: SearchResultView, didTapLocation locationId: Int)
+    func rmSearchResultView(_ resultView: SearchResultView, didTapEpisode episodeId: String)
+    func rmSearchResultView(_ resultView: SearchResultView, didTapChracter chracterId: Int)
+    
 }
 
 final class SearchResultView: UIView {
@@ -142,9 +145,11 @@ extension SearchResultView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let viewModel = locationCellVM[indexPath.row]
-        self.delegate?.rmSearchResultView(self, didTap: viewModel.locationId)
+        self.delegate?.rmSearchResultView(self, didTapLocation: viewModel.locationId)
     }
 }
+
+
 
 //MARK: CollectionViewLayout guide
 extension SearchResultView: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
@@ -169,21 +174,30 @@ extension SearchResultView: UICollectionViewDelegateFlowLayout, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+
+        
+        let currentVM = collectionViewCellVM[indexPath.row]
+        if let characterVM = currentVM as? RMCharacterCVCellVM {
+            self.delegate?.rmSearchResultView(self, didTapChracter: characterVM.characterId)
+        } else if let episodeVM = currentVM as? RMEpisodeCVCellVM {
+            if let episode = episodeVM.episdoeDataURL {
+                if let episodeId = episode.split(separator: "/").last {
+                    self.delegate?.rmSearchResultView(self, didTapEpisode: "\(episodeId)")
+                }
+            }
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let currentVM = collectionViewCellVM[indexPath.row]
         let bounds = collectionView.bounds
+        var width: CGFloat
         if currentVM is RMCharacterCVCellVM {
-            let width = (bounds.width-30)/2
+            width = UIDevice.isiPhone ? (bounds.width-30) / 2 : (bounds.width-50) / 4
             return CGSize(width: width, height: width * 1.5)
         }
-        let width = bounds.width - 20
-        return CGSize(width: width, height: width * 0.3)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        //        guard self.viewModel!.shouldShowLoadMoreIndicator else { return .zero }
-        return CGSize(width: collectionView.frame.width, height: 60)
+        
+        width = UIDevice.isiPhone ? bounds.width - 20 : (bounds.width-30) / 2
+        return UIDevice.isiPhone ? CGSize(width: width, height: width * 0.3) : CGSize(width: width, height: width * 0.13)
     }
 }

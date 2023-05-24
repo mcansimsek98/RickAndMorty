@@ -12,7 +12,7 @@ class SplashVC: BaseVC<SplashVM> {
     
     private var imgView : UIImageView = {
         let img = UIImageView()
-        img.contentMode = .scaleAspectFill
+        img.contentMode = .scaleToFill
         img.image = UIImage(named: "splash")
         return img
     }()
