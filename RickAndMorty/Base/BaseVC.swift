@@ -74,6 +74,8 @@ extension BaseVC: TopNavBarDelegate {
     }
     
     func shareBtnAction() {
-        
+        let text = "https://rickandmortyapi.com/"
+        let activityViewController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
+        present(activityViewController, animated: true, completion: nil)
     }
 }
